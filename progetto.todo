@@ -1,0 +1,25 @@
+Idea principale: bot per la gestione di un gruppo telegram
+
+Il bot deve salvare su un database le informazioni sui gruppi in cui viene aggiunto, i permessi degli amministratori ecc
+
+Cosa si può fare normalmente con telegram?
+
+Interfaccia web per amministrare il gruppo:
+    - Lista admin, possibilità di aggiungere o togliere
+    - Lista warn, ban, kick
+    - Lista utenti
+    - Possibilità di scrivere tramite il bot
+    - Ogni admin ha il suo account per accedere all'interfaccia web
+    - ------ Modalità democrazia: votazione per kickare persone
+    - 
+
+Lista parole bannate
+Warn agli utenti
+Possibilità di contattare gli amministratori con @admin -> staff
+
+
+--- Opzioni gruppo ---
+Permesso negato per utenti con nomi con caratteri non consentiti o senza username
+Captcha?
+Ora dopo il quale non si può scrivere più
+-------------------------------------------------------------------------------------------------------------------------------------------------
