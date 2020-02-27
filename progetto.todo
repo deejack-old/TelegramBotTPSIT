@@ -16,6 +16,7 @@ Interfaccia web per amministrare il gruppo:
 Lista parole bannate
 Warn agli utenti
 Possibilità di contattare gli amministratori con @admin -> staff
+Mutare gli utenti
 
 
 --- Opzioni gruppo ---
@@ -23,3 +24,6 @@ Permesso negato per utenti con nomi con caratteri non consentiti o senza usernam
 Captcha?
 Ora dopo il quale non si può scrivere più
 -------------------------------------------------------------------------------------------------------------------------------------------------
+Con la api non si possono iterare i membri, posso o salvarli sul db quando scrivono, oppure bannare/kickare/mutare/warnare replicando a un messaggio
+Tabella con gli eventi, tipo chi ha bannato/kickato/warnato chi
+Prima di kickare controllare se l'utente ha i permessi giusti e se l'altro utente non ha permessi
