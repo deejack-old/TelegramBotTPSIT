@@ -1,24 +1,36 @@
+const TelegramBot = require('node-telegram-bot-api')
+let userService = require('../../database/services/users')
+const bot = require('../services/bot').bot
+
 class Command {
-    constructor(name, description, minArgs, examplePattern) {
+    constructor(name, description, minArgs, examplePattern, replyRequired = false, permissionsRequired = [], ignorePermissions = []) {
         this.name = name
         this.description = description
         this.minArgs = minArgs
         this.examplePattern = examplePattern
+        this.replyRequired = replyRequired
+        this.permissionsRequired = permissionsRequired
+        this.ignorePermissions = ignorePermissions
     }
 
+    /** @param {TelegramBot.Message} message */
     onCommand(message) {
         throw new Error('You must implement this method')
     }
 
-    beforeCommand(message) {
-        if (message.text.split(' ').length < this.minArgs + 1) {
-            return {
-                ok: false,
-                message: this.examplePattern
-            }
-        } else return {
-            ok: true
-        }
+    /** @param {TelegramBot.Message} message */
+    async beforeCommand(message) {
+        let userPermission = await userService.getUserPermissions(message.from.id, message.chat.id)
+        let permNeeded = this.permissionsRequired.filter(perm => !userPermission.includes(perm))
+        console.log(permNeeded)
+        if (permNeeded.length > 0) {
+            bot.sendMessage(message.chat.id, 'Non hai i permessi necessari')
+        } else if (message.text.split(' ').length < this.minArgs + 1) {
+            bot.sendMessage(message.chat.id, this.examplePattern)
+        } else if (this.replyRequired && !message.reply_to_message) {
+            bot.sendMessage(message.chat.id, 'Devi replicare a un messaggio')
+        } 
+        else this.onCommand(message)
     }
 }
 

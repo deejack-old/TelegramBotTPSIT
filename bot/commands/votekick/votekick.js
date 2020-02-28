@@ -5,19 +5,18 @@ const bot = require('../../services/bot').bot
 
 class VoteKick extends Command {
     constructor() {
-        super('votekick', 'Ban a word', 0, '/votekick')
+        super('votekick', 'Ban a word', 0, '/votekick', true)
     }
 
     /** @param {TelegramBot.Message} message */
     onCommand(message) {
-        if (!message.reply_to_message) {
-            bot.sendMessage(message.chat.id, 'Devi replicare a un messaggio per kickare!')
-            return
-        }
+        // if (!message.reply_to_message) {
+        //     bot.sendMessage(message.chat.id, 'Devi replicare a un messaggio per kickare!')
+        //     return
+        // }
         let replyFrom = message.reply_to_message.from
         let name = replyFrom.username || ((replyFrom.first_name || '') + (replyFrom.last_name || ''))
         bot.sendPoll(message.chat.id, 'Vuoi kickare ' + name + '?', ['Sì', 'No']).then((message) => {
-            console.log(message.poll.id)
             setTimeout(() => {
                 bot.stopPoll(message.chat.id, message.message_id).then((result) => {
                     let yes = result.options[0].voter_count

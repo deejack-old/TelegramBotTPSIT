@@ -1,17 +1,18 @@
 const { Sequelize, DataTypes, Model } = require('sequelize')
+const Group = require('./Group')
+const Role = require('./Role')
 /** @constant @type {Sequelize} */
 const sequelize = require('../database').connection
-const Group = require('./Group')
 
-const BannedWord = sequelize.define('BannedWord', {
+const GroupMember = sequelize.define('GroupMember', {
     id: {
         type: DataTypes.INTEGER,
         autoIncrement: true,
         allowNull: false,
         primaryKey: true
     },
-    word: {
-        type: DataTypes.STRING(100),
+    userID: {
+        type: DataTypes.INTEGER,
         allowNull: false
     },
     groupID: {
@@ -21,9 +22,16 @@ const BannedWord = sequelize.define('BannedWord', {
             model: Group,
             key: 'id'
         }
+    },
+    roleID: {
+        type: DataTypes.INTEGER,
+        allowNull: false,
+        references: {
+            model: Role,
+            key: 'id'
+        }
     }
 }, {
-
 })
 
-module.exports = BannedWord
+module.exports = GroupMember

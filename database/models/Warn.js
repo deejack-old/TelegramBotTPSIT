@@ -1,6 +1,8 @@
 const { Sequelize, DataTypes, Model } = require('sequelize')
 /** @constant @type {Sequelize} */
 const sequelize = require('../database').connection
+const Group = require('./Group')
+const GroupMember = require('./GroupMember')
 
 const Warn = sequelize.define('Warn', {
     id: {
@@ -9,9 +11,21 @@ const Warn = sequelize.define('Warn', {
         allowNull: false,
         primaryKey: true
     },
-    word: {
-        type: DataTypes.STRING(100),
-        allowNull: false
+    groupID: {
+        type: DataTypes.INTEGER,
+        allowNull: false,
+        references: {
+            model: Group,
+            key: 'id'
+        }
+    },
+    userID: {
+        type: DataTypes.INTEGER,
+        allowNull: false,
+        references: {
+            model: GroupMember,
+            key: 'id'
+        }
     }
 }, {
 })

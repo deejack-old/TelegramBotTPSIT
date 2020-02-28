@@ -5,18 +5,19 @@ const bot = require('../../services/bot').bot
 
 class Kick extends Command {
     constructor() {
-        super('kick', 'Kick a user', 0, '/kick {username}')
+        super('kick', 'Kick a user', 0, '/kick {username}', true)
     }
 
     onCommand(message) {
-        if (!message.reply_to_message) {
-            bot.sendMessage(message.chat.id, 'Devi replicare a un messaggio per kickare!')
-            return
-        }
+        // if (!message.reply_to_message) {
+        //     bot.sendMessage(message.chat.id, 'Devi replicare a un messaggio per kickare!')
+        //     return
+        // }
         let replyFrom = message.reply_to_message.from
         let userID = replyFrom.id
         //if (userID)
         bot.kickChatMember(message.chat.id, userID)
+            .then(() => bot.sendMessage(message.chat.id, "Utente kickato"))
             .catch((error) => {
                 console.error(error)
                 bot.sendMessage(message.chat.id, "Impossibile kickare l'utente, errore: " + error.response.body.description)

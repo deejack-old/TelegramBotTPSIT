@@ -1,29 +1,34 @@
-Idea principale: bot per la gestione di un gruppo telegram
+'Cmd/Ctrl+Enter' // Triggers `Todo: Toggle Box`
+'Alt+Enter' // Triggers `Todo: Toggle Box`
+'Alt+D' // Triggers `Todo: Toggle Done`
+'Alt+C' // Triggers `Todo: Toggle Cancelled`
+'Alt+S' // Triggers `Todo: Toggle Start`
+'Cmd/Ctrl+Shift+A' // Triggers  `Todo: Archive`
 
+Idea principale: bot per la gestione di un gruppo telegram
 Il bot deve salvare su un database le informazioni sui gruppi in cui viene aggiunto, i permessi degli amministratori ecc
 
-Cosa si può fare normalmente con telegram?
-
 Interfaccia web per amministrare il gruppo:
-    - Lista admin, possibilità di aggiungere o togliere
-    - Lista warn, ban, kick
-    - Lista utenti
-    - Possibilità di scrivere tramite il bot
-    - Ogni admin ha il suo account per accedere all'interfaccia web
-    - ------ Modalità democrazia: votazione per kickare persone
-    - 
+    ☐ [s] Lista admin, possibilità di aggiungere o togliere
+    ☐ Lista warn, ban, kick
+    ☐ Lista utenti
+    ☐ Possibilità di scrivere tramite il bot
+    ☐ Ogni admin ha il suo account per accedere all'interfaccia web
+    ☐ 
+BOT:
+    ☐ Possibilità di contattare gli amministratori con @admin -> staff
+    ☐ Mutare gli utenti
+    ☐ Permesso negato per utenti con nomi con caratteri non consentiti o senza username
+    ☐ Captcha?
+    ☐ Ora dopo il quale non si può scrivere più
+    ☐ Prima di kickare controllare se l'utente ha i permessi giusti e se l'altro utente non ha permessi
+    ✔ Modalità democrazia: votazione per kickare persone @started(20-02-28 11:47) @done(20-02-28 11:48) @lasted(1m)
+    ☐ controllare se ha il ruolo Banned prima di farlo entrare
 
-Lista parole bannate
-Warn agli utenti
-Possibilità di contattare gli amministratori con @admin -> staff
-Mutare gli utenti
-
-
---- Opzioni gruppo ---
-Permesso negato per utenti con nomi con caratteri non consentiti o senza username
-Captcha?
-Ora dopo il quale non si può scrivere più
+Database:
+    ☐ Lista parole bannate @started(20-02-28 11:47)
+    ☐ Warn agli utenti @started(20-02-28 11:47)
+    ☐ Tabella con gli eventi, tipo chi ha bannato/kickato/warnato chi
+    ☐ Mettere colonna per il ruolo degli utenti @started(20-02-28 11:47)
+    ☐ Con la api non si possono iterare i membri, posso o salvarli sul db quando scrivono, oppure bannare/kickare/mutare/warnare replicando a un messaggio
 -------------------------------------------------------------------------------------------------------------------------------------------------
-Con la api non si possono iterare i membri, posso o salvarli sul db quando scrivono, oppure bannare/kickare/mutare/warnare replicando a un messaggio
-Tabella con gli eventi, tipo chi ha bannato/kickato/warnato chi
-Prima di kickare controllare se l'utente ha i permessi giusti e se l'altro utente non ha permessi

@@ -1,29 +1,19 @@
 const { Sequelize, DataTypes, Model } = require('sequelize')
 /** @constant @type {Sequelize} */
 const sequelize = require('../database').connection
-const Group = require('./Group')
 
-const BannedWord = sequelize.define('BannedWord', {
+const Group = sequelize.define('Group', {
     id: {
         type: DataTypes.INTEGER,
         autoIncrement: true,
         allowNull: false,
         primaryKey: true
     },
-    word: {
-        type: DataTypes.STRING(100),
-        allowNull: false
-    },
-    groupID: {
+    chatID: {
         type: DataTypes.INTEGER,
-        allowNull: false,
-        references: {
-            model: Group,
-            key: 'id'
-        }
+        allowNull: false
     }
 }, {
-
 })
 
-module.exports = BannedWord
+module.exports = Group
