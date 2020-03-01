@@ -1,12 +1,13 @@
 const Command = require('../command')
+const bot = require('../../services/bot').bot
 
 class BanCommand extends Command {
     constructor() {
-        super('ban', 'Ban a user', 1, '/ban {username} [duration:min] [reason]')
+        super('ban', 'Ban a user', 1, '/ban {username} [duration:min] [reason]', true, ['ban'], ['ignoreBans'])
     }
 
     onCommand(message) {
-        console.error('asd')
+        bot.sendMessage(message.chat.id, 'Comando non ancora implementato')
     }
 }
 

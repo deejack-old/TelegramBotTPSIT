@@ -20,17 +20,40 @@ class Command {
 
     /** @param {TelegramBot.Message} message */
     async beforeCommand(message) {
-        let userPermission = await userService.getUserPermissions(message.from.id, message.chat.id)
-        let permNeeded = this.permissionsRequired.filter(perm => !userPermission.includes(perm))
-        console.log(permNeeded)
-        if (permNeeded.length > 0) {
-            bot.sendMessage(message.chat.id, 'Non hai i permessi necessari')
-        } else if (message.text.split(' ').length < this.minArgs + 1) {
-            bot.sendMessage(message.chat.id, this.examplePattern)
-        } else if (this.replyRequired && !message.reply_to_message) {
-            bot.sendMessage(message.chat.id, 'Devi replicare a un messaggio')
-        } 
-        else this.onCommand(message)
+        console.log('BEFORE COMMAND')
+        //console.log(this.minArgs)
+        //let permRequired = this.permissionsRequired
+        try {
+            let userPermission = await userService.getUserPermissions(message.from.id, message.chat.id)
+            let permNeeded = this.permissionsRequired.filter(perm => !userPermission.includes(perm))
+            console.log(permNeeded)
+            if (permNeeded.length > 0 && !userPermission.includes('*')) {
+                bot.sendMessage(message.chat.id, 'Non hai i permessi necessari')
+            } else if (message.text.split(' ').length < this.minArgs + 1) {
+                bot.sendMessage(message.chat.id, this.examplePattern)
+            } else if (this.replyRequired && !message.reply_to_message) {
+                bot.sendMessage(message.chat.id, 'Devi replicare a un messaggio')
+            }
+            else this.onCommand(message)
+        } catch(exception) {
+            console.error(exception)
+        }
+        
+        // userService.getUserPermissions(message.from.id, message.chat.id)
+        //     .then((userPermission) => {
+        //         let permNeeded = permRequired.filter(perm => !userPermission.includes(perm))
+        //         console.log(permNeeded)
+        //         if (permNeeded.length > 0 && !userPermission.includes('*')) {
+        //             bot.sendMessage(message.chat.id, 'Non hai i permessi necessari')
+        //         } else if (message.text.split(' ').length < this.minArgs + 1) {
+        //             bot.sendMessage(message.chat.id, this.examplePattern)
+        //         } else if (this.replyRequired && !message.reply_to_message) {
+        //             bot.sendMessage(message.chat.id, 'Devi replicare a un messaggio')
+        //         } 
+        //         else this.onCommand(message)
+        //     })
+        //     .catch(console.error)
+
     }
 }
 

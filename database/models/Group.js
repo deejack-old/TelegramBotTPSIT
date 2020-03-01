@@ -10,7 +10,7 @@ const Group = sequelize.define('Group', {
         primaryKey: true
     },
     chatID: {
-        type: DataTypes.INTEGER,
+        type: DataTypes.BIGINT,
         allowNull: false
     }
 }, {

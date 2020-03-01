@@ -32,6 +32,7 @@ async function testConnection() {
         return false
     }
     await connection.sync()
+    addDefaultRecords()
     return true
 }
 
@@ -49,7 +50,7 @@ async function addDefaultRecords() {
     if (permCount === 0) {
         permission.build({ roleID: 1, name: '*' }).save()
         let userPerms = ['write', 'callAdmin', 'viewStaff', 'votekick']
-        let modPerms = [...userPerms, 'ignoreBans', 'ban', 'mute', 'warn', 'info']
+        let modPerms = [...userPerms, 'ignoreBans', 'ignoreWordBan', 'ban', 'mute', 'warn', 'info']
         modPerms.forEach(perm => permission.build({ roleID: 2, name: perm }).save())
         userPerms.forEach(perm => permission.build({ roleID: 3, name: perm }).save())
         
