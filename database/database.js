@@ -24,7 +24,11 @@ async function testConnection() {
             require('./models/Permission'),
             require('./models/GroupMember'),
             require('./models/BannedWords'), 
-            require('./models/Warn'))
+            require('./models/Warn'),
+            require('./models/Ban'),
+            require('./models/Mute'),
+            require('./models/Kick'),
+            )
         //global.databaseConnection = connection
         console.log('CONNECTED TO MYSQL')
     } catch (error) {

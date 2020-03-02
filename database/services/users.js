@@ -5,7 +5,7 @@ const groupService = require('./group')
 async function getGroupMember(userID, chatID) {
     let group = await groupService.getGroup(chatID)
     let member = await GroupMemberModel.findOne({ where: { groupID: group.id, userID: userID } })
-    return member.dataValues
+    return member ? member.dataValues : null
 }
 
 async function getUserPermissions(userID, chatID) {
@@ -14,5 +14,11 @@ async function getUserPermissions(userID, chatID) {
     return permissions.map(permission => permission.dataValues.name)
 }
 
+async function createMember(userID, name, chatID) {
+    let group = await groupService.getGroup(chatID)
+    GroupMemberModel.build({ groupID: group.id, userID: userID, name: name, roleID: 3 }).save()
+}
+
 exports.getGroupMember = getGroupMember
 exports.getUserPermissions = getUserPermissions
+exports.createMember = createMember

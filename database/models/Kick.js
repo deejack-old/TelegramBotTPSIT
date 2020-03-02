@@ -1,23 +1,15 @@
 const { Sequelize, DataTypes, Model } = require('sequelize')
-const Group = require('./Group')
-const Role = require('./Role')
 /** @constant @type {Sequelize} */
 const sequelize = require('../database').connection
+const Group = require('./Group')
+const GroupMember = require('./GroupMember')
 
-const GroupMember = sequelize.define('GroupMember', {
+const Kick = sequelize.define('Kick', {
     id: {
         type: DataTypes.INTEGER,
         autoIncrement: true,
         allowNull: false,
         primaryKey: true
-    },
-    userID: {
-        type: DataTypes.INTEGER,
-        allowNull: false
-    },
-    name: {
-        type: DataTypes.STRING(100),
-        allowNull: false
     },
     groupID: {
         type: DataTypes.INTEGER,
@@ -27,15 +19,28 @@ const GroupMember = sequelize.define('GroupMember', {
             key: 'id'
         }
     },
-    roleID: {
+    userID: {
         type: DataTypes.INTEGER,
         allowNull: false,
         references: {
-            model: Role,
+            model: GroupMember,
             key: 'id'
         }
+    },
+    adminID: {
+        type: DataTypes.INTEGER,
+        allowNull: false,
+        references: {
+            model: GroupMember,
+            key: 'id'
+        }
+    },
+    reason: {
+        type: DataTypes.TEXT,
+        allowNull: true
     }
 }, {
+
 })
 
-module.exports = GroupMember
+module.exports = Kick

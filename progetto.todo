@@ -14,21 +14,28 @@ Interfaccia web per amministrare il gruppo:
     ☐ Lista utenti
     ☐ Possibilità di scrivere tramite il bot
     ☐ Ogni admin ha il suo account per accedere all'interfaccia web
-    ☐ 
+    ☐ https://core.telegram.org/bots/api#promotechatmember
 BOT:
     ☐ Possibilità di contattare gli amministratori con @admin -> staff
-    ☐ Mutare gli utenti
+    ✔ Mutare gli utenti @done(20-03-02 21:39)
     ☐ Permesso negato per utenti con nomi con caratteri non consentiti o senza username
     ☐ Captcha?
     ☐ Ora dopo il quale non si può scrivere più
-    ☐ Prima di kickare controllare se l'utente ha i permessi giusti e se l'altro utente non ha permessi
+    ✔ Prima di kickare controllare se l'utente ha i permessi giusti e se l'altro utente non ha permessi @done(20-03-02 21:39)
     ✔ Modalità democrazia: votazione per kickare persone @started(20-02-28 11:47) @done(20-02-28 11:48) @lasted(1m)
-    ☐ controllare se ha il ruolo Banned prima di farlo entrare
+    ☐ controllare se è nella tabella dei bannati e se è ancora bananto prima di farlo entrare
+    ☐ https://core.telegram.org/bots/api#promotechatmember
+    ☐ /changename per cambiare il nome del groupmbember del db
 
 Database:
-    ☐ Lista parole bannate @started(20-02-28 11:47)
-    ☐ Warn agli utenti @started(20-02-28 11:47)
+    ✔ Lista parole bannate @started(20-02-28 11:47) @done(20-03-02 10:31) @lasted(2d22h44m16s)
+    ✔ Warn agli utenti @started(20-02-28 11:47) @done(20-03-02 10:58) @lasted(2d23h11m31s)
+    ✔ Mettere colonna per il ruolo degli utenti @started(20-02-28 11:47) @done(20-03-02 10:58) @lasted(2d23h11m41s)
+    ✔ Con la api non si possono iterare i membri, posso o salvarli sul db quando scrivono, oppure bannare/kickare/mutare/warnare replicando a un messaggio @done(20-03-02 10:58)
     ☐ Tabella con gli eventi, tipo chi ha bannato/kickato/warnato chi
-    ☐ Mettere colonna per il ruolo degli utenti @started(20-02-28 11:47)
-    ☐ Con la api non si possono iterare i membri, posso o salvarli sul db quando scrivono, oppure bannare/kickare/mutare/warnare replicando a un messaggio
+        ☐ Anzi no, semplicemente dal robo web prendo tutto e riordino in base alla data, non ha senso avere cose ripetute e intrecciate
 -------------------------------------------------------------------------------------------------------------------------------------------------
+Problemi:
+    ☐ Non aggiunge gli admin nel db quando viene messo per la prima volta
+    ☐ Viene eseguito prima l'evento del testo che l'aggiunta dell'utente nel db
+        ☐ Fare il controllo nel beforeEvent

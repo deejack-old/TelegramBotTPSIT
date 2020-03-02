@@ -1,11 +1,11 @@
 const Command = require('../command')
 const TelegramBot = require('node-telegram-bot-api')
 const groups = require('../../../database/services/group')
-const bot = require('../../services/bot').bot
+const botService = require('../../services/bot')
 
 class WordBan extends Command {
     constructor() {
-        super('wordban', 'Ban a word', 1, '/wordban {word}')
+        super('wordban', 'Ban a word', 1, '/wordban {word}', false, ['wordBan'])
     }
 
     /** @param {TelegramBot.Message} message */
@@ -15,7 +15,7 @@ class WordBan extends Command {
         wordsToBan.forEach((word) => {
             groups.banWord(message.chat.id, word)
         })
-        bot.sendMessage(message.chat.id, 'Bannate parole: ' + wordsToBan.join(', '))
+        botService.sendMessage(message.chat.id, `Bannate parole: ${wordsToBan.join(', ')}`)
     }
 }
 

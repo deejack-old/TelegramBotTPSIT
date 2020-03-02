@@ -1,19 +1,15 @@
 const Command = require('../command')
-const WarnModel = require('../../../database/models/Warn')
 const TelegramBot = require('node-telegram-bot-api')
-const sendMessage = require('../../services/bot').sendMessage
+const botService = require('../../services/bot')
 
 class Options extends Command {
     constructor() {
-        super('options', 'Ban a word', 1, '/wordban {word}')
+        super('options', 'Bot options', 0, '/options', false, ['options'])
     }
 
     /** @param {TelegramBot.Message} message */
     onCommand(message) {
-        if (!message.reply_to_message) {
-            sendMessage('Devi replicare a un messaggio per kickare!')
-        }
-        console.log(message)
+        botService.sendMessage(message.chat.id, 'Comando non implementato')
     }
 }
 

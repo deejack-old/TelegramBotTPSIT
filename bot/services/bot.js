@@ -18,7 +18,7 @@ function start() {
     bot.startPolling().then(() => {
         console.log('BOT avviato')
         fs.readdir(__dirname + '\\..\\commands', (error, files) => {
-                files.forEach(file => {
+            files.forEach(file => {
                 if (!file.endsWith('.js')) {
                     let command = require(`../commands/${file}/${file}.js`)
                     commands.push(new command())
@@ -35,28 +35,19 @@ function registerEvents() {
     bot.addListener('new_chat_members', async (message) => {
         console.assert(message.new_chat_member.id == token.split(':')[0], 'Non è il bot')
         if (message.new_chat_member.id == token.split(':')[0]) {
-            let group = await GroupModel.findOne( { where: { chatID: message.chat.id } })
+            let group = await GroupModel.findOne({ where: { chatID: message.chat.id } })
             if (!group) {
                 group = GroupModel.build({ chatID: message.chat.id })
                 group.save()
-                bot.sendMessage("Il bot è stato aggiunto per la prima volta, gli admin attualmente presenti potranno accedere utilizzando l'interfaccia web. \nPer utilizzare le funzioni del bot promuoverlo ad amministratore.")
+                bot.sendMessage(message.chat.id, "Il bot è stato aggiunto per la prima volta, gli admin attualmente presenti potranno accedere utilizzando l'interfaccia web. \nPer utilizzare le funzioni del bot promuoverlo ad amministratore.")
                 let admins = await bot.getChatAdministrators(message.chat.id)
+                console.log(admins)
                 admins.forEach(admin => {
                     let role = admin.status === 'creator' ? 1 : 2
-                    GroupMemberModel.build({ groupID: group.dataValues.id, userID: admin.user.id, roleID: role }).save()
+                    let name = admin.user.username || ((admin.user.first_name || '') + ' ' + (admin.user.last_name || ''))
+                    GroupMemberModel.build({ groupID: group.dataValues.id, userID: admin.user.id, name: name, roleID: role }).save()
                 })
             }
-        }
-    })
-    bot.addListener('message', async (message) => {
-        let group = await GroupModel.findOne({ where: { chatID: message.chat.id }})
-        //console.log({ group })
-        if (!group) return;
-        let groupMember = await GroupMemberModel.findOne({ where: { groupID: group.dataValues.id, userID: message.from.id }})
-        if (!groupMember) { // Serve davvero avere una tabella degli utenti che hanno scritto?
-            bot.sendMessage('Aggiunto ' + (message.from.username || message.from.first_name) + ' al db')
-            //let user = await bot.getChatMember(message.from.id)
-            GroupMemberModel.build({ groupID: group.dataValues.id, userID: message.from.id, roleID: 3 }).save()
         }
     })
     events.forEach(event => bot.addListener(event.name, (message) => event.beforeEvent(message)))
@@ -70,3 +61,6 @@ function registerCommands() {
 
 exports.start = start
 exports.bot = bot
+exports.mentionUser = (username, userID) => `[${username}](tg://user?id=${userID})`
+exports.sendMessage = (chatID, message) => bot.sendMessage(chatID, message, { parse_mode: 'MarkdownV2' })
+exports.botID = token.split(':')[0]

@@ -11,7 +11,7 @@ class TextEvent extends Event {
 
     /** @param {TelegramBot.Message} message */
     async onEvent(message) {
-        let user = await userService.getGroupMember(message.from.id, message.chat.id)
+        //let user = await userService.getGroupMember(message.from.id, message.chat.id)
         let permissions = await userService.getUserPermissions(message.from.id, message.chat.id)
         console.log({ permissions: permissions })
         if (permissions.includes('ignoreWordBan')) return;
