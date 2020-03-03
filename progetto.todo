@@ -23,9 +23,10 @@ BOT:
     ☐ Ora dopo il quale non si può scrivere più
     ✔ Prima di kickare controllare se l'utente ha i permessi giusti e se l'altro utente non ha permessi @done(20-03-02 21:39)
     ✔ Modalità democrazia: votazione per kickare persone @started(20-02-28 11:47) @done(20-02-28 11:48) @lasted(1m)
-    ☐ controllare se è nella tabella dei bannati e se è ancora bananto prima di farlo entrare
+    ☐ controllare se è nella tabella dei bannati e se è ancora bananto prima di farlo entrare [è necessario?]
     ☐ https://core.telegram.org/bots/api#promotechatmember
     ☐ /changename per cambiare il nome del groupmbember del db
+    ☐ Tabella per impedire di scrivere nel gruppo https://core.telegram.org/bots/api#setchatpermissions
 
 Database:
     ✔ Lista parole bannate @started(20-02-28 11:47) @done(20-03-02 10:31) @lasted(2d22h44m16s)
@@ -34,8 +35,13 @@ Database:
     ✔ Con la api non si possono iterare i membri, posso o salvarli sul db quando scrivono, oppure bannare/kickare/mutare/warnare replicando a un messaggio @done(20-03-02 10:58)
     ☐ Tabella con gli eventi, tipo chi ha bannato/kickato/warnato chi
         ☐ Anzi no, semplicemente dal robo web prendo tutto e riordino in base alla data, non ha senso avere cose ripetute e intrecciate
+    ☐ ChatID nella tabella groupmember, però a sto punto devo fare una nuova tabella contenente userid e chatid? che palle
+        ☐ Anzi basta fare una nuova tabella per chi avvia il bot, controllare /start e prima vedere se è un gruppo o no
+    ☐ Tabella per le opzioni, se è attivo il controllo per gli username, per l'orario, orario di inizio/fine della notte
+
 -------------------------------------------------------------------------------------------------------------------------------------------------
 Problemi:
-    ☐ Non aggiunge gli admin nel db quando viene messo per la prima volta
+    ✔ Non aggiunge gli admin nel db quando viene messo per la prima volta @done(20-03-03 15:23)
     ☐ Viene eseguito prima l'evento del testo che l'aggiunta dell'utente nel db
         ☐ Fare il controllo nel beforeEvent
+    ☐ Controllare se gli utenti vengono effettivamente bannati

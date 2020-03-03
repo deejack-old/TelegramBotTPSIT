@@ -67,6 +67,10 @@ async function getAdmins(chatID) {
     return admins.map(admin => admin.dataValues)
 }
 
+async function getGroupOptions() {
+
+}
+
 exports.getGroup = getGroup
 exports.getBannedWords = getBannedWords
 exports.banWord = banWord
