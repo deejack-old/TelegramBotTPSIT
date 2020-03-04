@@ -6,6 +6,7 @@ const Ban = require('../models/Ban')
 const Mute = require('../models/Mute')
 const Kick = require('../models/Kick')
 const GroupMember = require('../models/GroupMember')
+const GroupOptions = require('../models/GroupOptions')
 const userService = require('./users')
 const botService = require('../../bot/services/bot')
 
@@ -67,8 +68,10 @@ async function getAdmins(chatID) {
     return admins.map(admin => admin.dataValues)
 }
 
-async function getGroupOptions() {
-
+async function getGroupOptions(chatID) {
+    let group = await getGroup(chatID)
+    let option = (await GroupOptions.findAll({ where: { groupID: group.id } }))[0]
+    return option.dataValues
 }
 
 exports.getGroup = getGroup
@@ -80,3 +83,4 @@ exports.kickUser = kickUser
 exports.banUser = banUser
 exports.muteUser = muteUser
 exports.getAdmins = getAdmins
+exports.getGroupOptions = getGroupOptions

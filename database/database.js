@@ -28,6 +28,7 @@ async function testConnection() {
             require('./models/Ban'),
             require('./models/Mute'),
             require('./models/Kick'),
+            //require('./models/User'),
             )
         //global.databaseConnection = connection
         console.log('CONNECTED TO MYSQL')
