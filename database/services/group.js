@@ -4,20 +4,30 @@ const Word = require('../models/BannedWords')
 const Warn = require('../models/Warn')
 const Ban = require('../models/Ban')
 const Mute = require('../models/Mute')
+const Login = require('../models/Login')
 const Kick = require('../models/Kick')
 const GroupMember = require('../models/GroupMember')
 const GroupOptions = require('../models/GroupOptions')
 const userService = require('./users')
-const botService = require('../../bot/services/bot')
 
 async function getGroup(chatID) {
     let group = await Group.findOne({ chatID: chatID })
-    return group.dataValues
+    return group ? group.dataValues : null
+}
+
+async function getGroupFromID(groupID) {
+    let group = await Group.findOne({ id: groupID })
+    return group ? group.dataValues : null
 }
 
 async function getBannedWords(chatID) {
     let group = await getGroup(chatID)
     let words = await BannedWord.findAll({ where: { groupID: group.id } })
+    return words.map(word => word.dataValues.word)
+}
+
+async function getBannedWordsFromGroupID(groupID) {
+    let words = await BannedWord.findAll({ where: { groupID: groupID } })
     return words.map(word => word.dataValues.word)
 }
 
@@ -30,8 +40,7 @@ async function banWord(chatID, word) {
 async function warnUser(chatID, userID) {
     let group = await getGroup(chatID)
     let user = await userService.getGroupMember(userID, chatID)
-    const warn = Warn.build({ groupID: group.id, userID: user.id })
-    warn.save()
+    const warn = await Warn.build({ groupID: group.id, userID: user.id }).save()
 }
 
 async function getWarnCount(chatID, userID) {
@@ -74,6 +83,19 @@ async function getGroupOptions(chatID) {
     return option.dataValues
 }
 
+async function getEvents(groupID) {
+    let bans = await Ban.findAll({ where: { groupID: groupID }})
+    let kicks = await Kick.findAll({ where: { groupID: groupID }})
+    let mutes = await Mute.findAll({ where: { groupID: groupID }})
+    let warns = await Warn.findAll({ where: { groupID: groupID }})
+    return {
+        bans: bans,
+        kicks: kicks,
+        mutes: mutes,
+        warns: warns
+    }
+}
+
 exports.getGroup = getGroup
 exports.getBannedWords = getBannedWords
 exports.banWord = banWord
@@ -84,3 +106,6 @@ exports.banUser = banUser
 exports.muteUser = muteUser
 exports.getAdmins = getAdmins
 exports.getGroupOptions = getGroupOptions
+exports.getGroupFromID = getGroupFromID
+exports.getEvents = getEvents
+exports.getBannedWordsFromGroupID = getBannedWordsFromGroupID

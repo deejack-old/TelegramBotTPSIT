@@ -1,0 +1,79 @@
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <a class="navbar-brand" href="#">Protected Page</a>
+</nav>
+
+<div>
+    <h2>This page is only visible to logged in users, your username: {{username}}</h2>
+
+    <div class="d-flex flex-row bd-highlight mb-2">
+        <div class="left mr-auto">
+            <caption>Ban list</caption>
+            <table class="table table-striped ">
+                <thead class="thead-dark">
+                    <tr>
+                        <th scope="col">Username</th>
+                        <th scope="col">Banned By</th>
+                        <th scope="col">From</th>
+                        <th scope="col">Until</th>
+                        <th scope="col">Reason</th>
+                        <th scope="col">Unban</th>
+                    </tr>
+                </thead>
+                <tbody id="ban">
+                </tbody>
+            </table>
+        </div>
+        <div class="right">
+            <caption>Kick list</caption>
+            <table class="table table-striped">
+                <thead class="thead-dark">
+                    <tr>
+                        <th scope="col">Username</th>
+                        <th scope="col">Kicked By</th>
+                        <th scope="col">From</th>
+                        <th scope="col">Reason</th>
+                    </tr>
+                </thead>
+                <tbody id="kick">
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <div>
+        <div class="left">
+            <caption>Mute list</caption>
+            <table class="table table-striped">
+                <thead class="thead-dark">
+                    <tr>
+                        <th scope="col">Username</th>
+                        <th scope="col">Muted By</th>
+                        <th scope="col">From</th>
+                        <th scope="col">Until</th>
+                        <th scope="col">Reason</th>
+                        <th scope="col">Unmute</th>
+                    </tr>
+                </thead>
+                <tbody id="mute">
+                </tbody>
+            </table>
+        </div>
+        <div class="right">
+            <caption>Warn list</caption>
+            <table class="table table-striped">
+                <thead class="thead-dark">
+                    <tr>
+                        <th scope="col">Username</th>
+                        <th scope="col">Warned By</th>
+                        <th scope="col">From</th>
+                        <th scope="col">Reason</th>
+                        <th scope="col">Remove</th>
+                    </tr>
+                </thead>
+                <tbody id="warn">
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <script defer src="/scripts/administration.js"></script>
+</div>

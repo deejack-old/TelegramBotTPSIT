@@ -21,6 +21,7 @@ class TextEvent extends Event {
             return
         }
         //let user = await userService.getGroupMember(message.from.id, message.chat.id)
+        this.checkTime(message.chat.id, message.message_id)
         this.checkBannedWords(message)
         this.checkAdminMention(message)
     }
@@ -37,12 +38,12 @@ class TextEvent extends Event {
                 let chatID = message.chat.id.toString()
                 try {
                     let helpMessage = await botService.bot.forwardMessage(admin.userID, message.chat.id, message.message_id)
-                    botService.bot.sendMessage(admin.userID, 
+                    botService.bot.sendMessage(admin.userID,
                         `Un utente ha richiesto l'aiuto degli admin, [vai al messaggio](t.me/c/${chatID.substr(chatID.length - 10, 10)}/${message.message_id})`, {
-                            reply_to_message_id: helpMessage.message_id,
-                            parse_mode: 'MarkdownV2'
-                        })
-                } catch {} // L'utente ha bloccato o non startato il bot
+                        reply_to_message_id: helpMessage.message_id,
+                        parse_mode: 'MarkdownV2'
+                    })
+                } catch { } // L'utente ha bloccato o non startato il bot
             })
         }
     }
@@ -59,12 +60,17 @@ class TextEvent extends Event {
         }
     }
 
-    async checkTime(chatID) {
+    async checkTime(chatID, messageID) {
         let now = new Date()
         let options = await groupService.getGroupOptions(chatID)
-        if (!options.nightEnabled) 
+        if (!options.nightEnabled)
             return
-        let nightStart = new Date(now.getFullYear(), now.getMonth(), now.getDate(), )
+        let nightStart = new Date(now.getFullYear(), now.getMonth(), now.getDate(), options.nightStart.split(':')[0], options.nightStart.split(':')[1])
+        let nightStop = new Date(now.getFullYear(), now.getMonth(), now.getDate(), options.nightStop.split(':')[0], options.nightStop.split(':')[1])
+        if (now > nightStart || now < nightStop) {
+            botService.bot.deleteMessage(chatID, messageID)
+            console.log('NOTTEEEEEE')
+        }
     }
 }
 

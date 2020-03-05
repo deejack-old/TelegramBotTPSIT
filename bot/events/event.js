@@ -15,6 +15,12 @@ class Event {
 
     /** @param {TelegramBot.Message} event */
     async beforeEvent(event) {
+        let group = await groupService.getGroup(event.chat.id)
+        if (!group && this.name === 'new_chat_members') {
+            this.onEvent(event)
+            return
+        }
+
         let groupMember = await userService.getGroupMember(event.from.id, event.chat.id)// await GroupMemberModel.findOne({ where: { groupID: group.dataValues.id, userID: message.from.id } })
         
         let name = event.from.username || ((event.from.first_name || '') + ' ' + (event.from.last_name || ''))

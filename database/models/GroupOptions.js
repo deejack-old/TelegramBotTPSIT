@@ -32,6 +32,11 @@ const Options = sequelize.define('Options', {
         type: DataTypes.TIME,
         allowNull: false,
         defaultValue: '06:00'
+    },
+    obligatoryUsername: {
+        type: DataTypes.BOOLEAN,
+        allowNull: false,
+        defaultValue: false,
     }
 }, {
 })
