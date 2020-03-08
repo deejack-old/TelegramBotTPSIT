@@ -43,4 +43,7 @@ const Kick = sequelize.define('Kick', {
 
 })
 
+Kick.belongsTo(GroupMember, { foreignKey: 'userID', targetKey: 'id', as: 'user' })
+Kick.belongsTo(GroupMember, { foreignKey: 'adminID', targetKey: 'id', as: 'admin' })
+
 module.exports = Kick

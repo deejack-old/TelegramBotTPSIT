@@ -11,18 +11,33 @@ async function getGroupMember(userID, chatID) {
     return member ? member.dataValues : null
 }
 
+async function updateRole(userID, chatID, roleID) {
+    let group = await groupService.getGroup(chatID)
+    let member = await GroupMember.findOne({ where: { groupID: group.id, userID: userID } })
+    if (member) {
+        member.setDataValue('roleID', roleID)
+        member.save()
+    }
+}
+
+async function getGroupMemberByID(userID, groupID) {
+    let member = await GroupMember.findOne({ where: { groupID: groupID, id: userID } })
+    return member ? member.dataValues : null
+}
+
 async function getUserPermissions(userID, chatID) {
     let user = await getGroupMember(userID, chatID)
+    if (!user) return []
     let permissions = await Permission.findAll({ where: { roleID: user.roleID, } })
     return permissions.map(permission => permission.dataValues.name)
 }
 
 async function createMember(userID, name, chatID) {
     let username = name
+    let group = await groupService.getGroup(chatID)
     while (GroupMember.count({ where: { name: username, groupID: group.id } }) > 0) {
         username += (Math.random() * 10 + 1)
     }
-    let group = await groupService.getGroup(chatID)
     GroupMember.build({ groupID: group.id, userID: userID, name: username, roleID: 3 }).save()
 }
 
@@ -56,9 +71,11 @@ async function getMemberFromName(groupID, username) {
 }
 
 exports.getGroupMember = getGroupMember
+exports.getGroupMemberByID = getGroupMemberByID
 exports.getUserPermissions = getUserPermissions
 exports.createMember = createMember
 exports.createLogin = createLogin
 exports.hasLogin = hasLogin
 exports.checkLogin = checkLogin
 exports.getMemberFromName = getMemberFromName
+exports.updateRole = updateRole

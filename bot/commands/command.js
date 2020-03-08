@@ -3,7 +3,7 @@ let userService = require('../../database/services/users')
 const botService = require('../services/bot')
 
 class Command {
-    constructor(name, description, minArgs, examplePattern, replyRequired = false, permissionsRequired = [], ignorePermissions = []) {
+    constructor(name, description, minArgs, examplePattern, replyRequired = false, permissionsRequired = [], ignorePermissions = [], groupRequired = true) {
         this.name = name
         this.description = description
         this.minArgs = minArgs
@@ -11,6 +11,7 @@ class Command {
         this.replyRequired = replyRequired
         this.permissionsRequired = permissionsRequired
         this.ignorePermissions = ignorePermissions
+        this.groupRequired = groupRequired
     }
 
     /** @param {TelegramBot.Message} message */
@@ -20,6 +21,11 @@ class Command {
 
     /** @param {TelegramBot.Message} message */
     async beforeCommand(message) { //TODO: rifare sta merda
+        if (this.groupRequired && message.chat.type === 'private') {
+            botService.sendMessage(message.chat.id, 'Non puoi usare il comando in chat privata!')
+            return
+        }
+
         if (this.replyRequired && message.reply_to_message && message.reply_to_message.from.id == botService.botID) {
             botService.sendMessage(message.chat.id, 'Come osi provare a usare i comandi contro di me')
             return
@@ -43,7 +49,7 @@ class Command {
             if (message.reply_to_message) {
                 let replyToUserPerm = await userService.getUserPermissions(message.reply_to_message.from.id, message.chat.id)
 
-                if (replyToUserPerm.includes('*') || replyToUserPerm.filter(perm => this.ignorePermissions.includes(perm)).length > 0) {
+                if ((replyToUserPerm.includes('*') && !userPermission.includes('*')) || (this.ignorePermissions.length > 0 && replyToUserPerm.filter(perm => this.ignorePermissions.includes(perm)).length > 0)) {
                     botService.sendMessage(message.chat.id, "Non puoi applicare questo comando su quell'utente")
                 } else
                     this.onCommand(message)

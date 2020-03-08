@@ -36,7 +36,12 @@ const Options = sequelize.define('Options', {
     obligatoryUsername: {
         type: DataTypes.BOOLEAN,
         allowNull: false,
-        defaultValue: false,
+        defaultValue: true,
+    },
+    captcha: {
+        type: DataTypes.BOOLEAN,
+        allowNull: false,
+        defaultValue: true,
     }
 }, {
 })

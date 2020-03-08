@@ -4,7 +4,6 @@ const Word = require('../models/BannedWords')
 const Warn = require('../models/Warn')
 const Ban = require('../models/Ban')
 const Mute = require('../models/Mute')
-const Login = require('../models/Login')
 const Kick = require('../models/Kick')
 const GroupMember = require('../models/GroupMember')
 const GroupOptions = require('../models/GroupOptions')
@@ -37,10 +36,11 @@ async function banWord(chatID, word) {
     wordRecord.save()
 }
 
-async function warnUser(chatID, userID) {
+async function warnUser(chatID, userID, adminID) {
     let group = await getGroup(chatID)
     let user = await userService.getGroupMember(userID, chatID)
-    const warn = await Warn.build({ groupID: group.id, userID: user.id }).save()
+    let admin = await userService.getGroupMember(adminID, chatID)
+    const warn = await Warn.build({ groupID: group.id, userID: user.id, adminID: admin.id }).save()
 }
 
 async function getWarnCount(chatID, userID) {
@@ -79,21 +79,8 @@ async function getAdmins(chatID) {
 
 async function getGroupOptions(chatID) {
     let group = await getGroup(chatID)
-    let option = (await GroupOptions.findAll({ where: { groupID: group.id } }))[0]
-    return option.dataValues
-}
-
-async function getEvents(groupID) {
-    let bans = await Ban.findAll({ where: { groupID: groupID }})
-    let kicks = await Kick.findAll({ where: { groupID: groupID }})
-    let mutes = await Mute.findAll({ where: { groupID: groupID }})
-    let warns = await Warn.findAll({ where: { groupID: groupID }})
-    return {
-        bans: bans,
-        kicks: kicks,
-        mutes: mutes,
-        warns: warns
-    }
+    let option = await GroupOptions.findOne({ where: { groupID: group.id } })
+    return option
 }
 
 exports.getGroup = getGroup
@@ -107,5 +94,4 @@ exports.muteUser = muteUser
 exports.getAdmins = getAdmins
 exports.getGroupOptions = getGroupOptions
 exports.getGroupFromID = getGroupFromID
-exports.getEvents = getEvents
 exports.getBannedWordsFromGroupID = getBannedWordsFromGroupID

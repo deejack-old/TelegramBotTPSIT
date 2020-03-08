@@ -29,6 +29,7 @@ async function testConnection() {
             require('./models/Mute'),
             require('./models/Kick'),
             require('./models/Login'),
+            require('./models/Captcha'),
             )
         //global.databaseConnection = connection
         console.log('CONNECTED TO MYSQL')
@@ -48,14 +49,13 @@ async function addDefaultRecords() {
         role.build({ role: 'Admin' }).save()
         role.build({ role: 'Mod' }).save()
         role.build({ role: 'User' }).save()
-        role.build({ role: 'Banned' }).save()
     }
     let permission = require('./models/Permission')
     let permCount = await permission.count()
     if (permCount === 0) {
         permission.build({ roleID: 1, name: '*' }).save()
         let userPerms = ['write', 'callAdmin', 'viewStaff', 'votekick']
-        let modPerms = [...userPerms, 'ignoreBans', 'ignoreWordBan', 'ban', 'mute', 'warn', 'info']
+        let modPerms = [...userPerms, 'ignoreBans', 'ignoreWordBan', 'ban', 'mute', 'warn', 'info', 'modifyOptions']
         modPerms.forEach(perm => permission.build({ roleID: 2, name: perm }).save())
         userPerms.forEach(perm => permission.build({ roleID: 3, name: perm }).save())
         

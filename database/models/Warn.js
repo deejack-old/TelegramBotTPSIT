@@ -26,8 +26,30 @@ const Warn = sequelize.define('Warn', {
             model: GroupMember,
             key: 'id'
         }
+    },
+    adminID: {
+        type: DataTypes.INTEGER,
+        allowNull: false,
+        references: {
+            model: GroupMember,
+            key: 'id'
+        }
+    },
+    reason: {
+        type: DataTypes.TEXT,
+        allowNull: false,
+        defaultValue: 'Nessuna'
+    },
+    disabled: {
+        type: DataTypes.BOOLEAN,
+        allowNull: false,
+        defaultValue: false
     }
 }, {
 })
+
+Warn.belongsTo(GroupMember, { foreignKey: 'userID', targetKey: 'id', as: 'user' })
+Warn.belongsTo(GroupMember, { foreignKey: 'adminID', targetKey: 'id', as: 'admin' })
+
 
 module.exports = Warn

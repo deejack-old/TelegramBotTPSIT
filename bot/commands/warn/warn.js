@@ -13,7 +13,7 @@ class Warn extends Command {
     /** @param {TelegramBot.Message} message */
     async onCommand(message) {
         let replyFrom = message.reply_to_message.from
-        let asd = await groupService.warnUser(message.chat.id, replyFrom.id)
+        let asd = await groupService.warnUser(message.chat.id, replyFrom.id, message.from.id)
         let warnCount = await groupService.getWarnCount(message.chat.id, replyFrom.id)
         
         let name = replyFrom.username || ((replyFrom.first_name || '') + ' ' + (replyFrom.last_name || ''))

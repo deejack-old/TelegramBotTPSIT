@@ -3,14 +3,7 @@ const token = '1032794534:AAGxPSe8_OnOoUMdk9uWcIEDpjCE5Q9HlzM'
 const bot = new TelegramBot(token)
 const fs = require('fs')
 const commands = []//new (require('../commands/ban/ban'))(), new (require('../commands/kick/kick'))(), new (require('../commands/wordban/wordban'))(), new (require('../commands/warn/warn'))()]
-const events = [new (require('./../events/text'))(), new (require('./../events/join'))()]
-// bot.on('text', (message) => {
-//     console.group('msg')
-//     console.log(message)
-//     console.groupEnd()
-//     bot.sendMessage(message.chat.id, message.text)
-// })
-
+const events = [new (require('./../events/text'))(), new (require('./../events/join'))(), new (require('./../events/callback'))()]
 
 function start() {
     bot.startPolling().then(() => {
@@ -29,24 +22,6 @@ function start() {
 }
 
 function registerEvents() {
-    // bot.addListener('new_chat_members', async (message) => {
-    //     console.assert(message.new_chat_member.id == token.split(':')[0], 'Non è il bot')
-    //     if (message.new_chat_member.id == token.split(':')[0]) {
-    //         let group = await GroupModel.findOne({ where: { chatID: message.chat.id } })
-    //         if (!group) {
-    //             group = GroupModel.build({ chatID: message.chat.id })
-    //             group.save()
-    //             bot.sendMessage(message.chat.id, "Il bot è stato aggiunto per la prima volta, gli admin attualmente presenti potranno accedere utilizzando l'interfaccia web. \nPer utilizzare le funzioni del bot promuoverlo ad amministratore.")
-    //             let admins = await bot.getChatAdministrators(message.chat.id)
-    //             console.log(admins)
-    //             admins.forEach(admin => {
-    //                 let role = admin.status === 'creator' ? 1 : 2
-    //                 let name = admin.user.username || ((admin.user.first_name || '') + ' ' + (admin.user.last_name || ''))
-    //                 GroupMemberModel.build({ groupID: group.dataValues.id, userID: admin.user.id, name: name, roleID: role }).save()
-    //             })
-    //         }
-    //     }
-    // })
     events.forEach(event => bot.addListener(event.name, (message) => event.beforeEvent(message)))
 }
 

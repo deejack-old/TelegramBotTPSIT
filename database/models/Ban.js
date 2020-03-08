@@ -42,9 +42,17 @@ const Ban = sequelize.define('Ban', {
     reason: {
         type: DataTypes.TEXT,
         allowNull: true
+    },
+    disabled: {
+        type: DataTypes.BOOLEAN,
+        allowNull: false,
+        defaultValue: false
     }
 }, {
-
+    
 })
+
+Ban.belongsTo(GroupMember, { foreignKey: 'userID', targetKey: 'id', as: 'user' })
+Ban.belongsTo(GroupMember, { foreignKey: 'adminID', targetKey: 'id', as: 'admin' })
 
 module.exports = Ban

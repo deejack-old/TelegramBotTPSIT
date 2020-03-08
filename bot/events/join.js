@@ -4,6 +4,7 @@ const botService = require('../services/bot')
 const GroupModel = require('../../database/models/Group')
 const GroupOptions = require('../../database/models/GroupOptions')
 const GroupMemberModel = require('../../database/models/GroupMember')
+const Captcha = require('../../database/models/Captcha')
 const groupService = require('../../database/services/group')
 
 class TextEvent extends Event {
@@ -13,6 +14,7 @@ class TextEvent extends Event {
 
     /** @param {TelegramBot.Message} message */
     async onEvent(message) {
+        console.log(message)
         if (message.new_chat_member.id == botService.botID) {
             let group = await GroupModel.findOne({ where: { chatID: message.chat.id } })
             if (!group) {
@@ -28,12 +30,40 @@ class TextEvent extends Event {
             }
             return
         }
-        let groupOptions = await groupService.getGroupOptions(message.chat.id)
-        if (groupOptions.obligatoryUsername && !message.from.username) {
-            let name = (replyFrom.first_name || '') + ' ' + (replyFrom.last_name || '')
-            let asd = await botService.sendMessage(`Kickato l'utente ${botService.mentionUser(name, message.from.id)} perchè non ha l'username`)
-            botService.bot.kickChatMember(message.chat.id, message.from.id)
+        let groupOptions = (await groupService.getGroupOptions(message.chat.id)).dataValues
+        let name = message.new_chat_member.username || (message.new_chat_member.first_name || '') + ' ' + (message.new_chat_member.last_name || '')
+        if (groupOptions.obligatoryUsername && !message.new_chat_member.username) {
+            botService.bot.kickChatMember(message.chat.id, message.new_chat_member.id)
+                .then(() => botService.sendMessage(message.chat.id, `Kickato l'utente ${botService.mentionUser(name, message.new_chat_member.id)} perchè non ha l'username`))
+                .catch((error) => {
+                    console.error(error)
+                    botService.sendMessage(message.chat.id, `Impossibile kickare l'utente ${botService.mentionUser(name, message.new_chat_member.id)}`)
+                })
+        } else if (groupOptions.captcha) {
+            this.sendCaptcha(message.chat.id, name, message.new_chat_member.id)
         }
+    }
+
+    sendCaptcha(chatID, name, userID) {
+        botService.bot.sendMessage(chatID, `Benvenuto ${botService.mentionUser(name, userID)}, completa il captcha in 30 secondi o verrai kickato\\!`, {
+            reply_markup: {
+                inline_keyboard: [[{ text: 'Captcha', callback_data: userID }]]
+            },
+            parse_mode: 'MarkdownV2'
+        })
+        setTimeout(async () => {
+            let captcha = await Captcha.findOne({ where: { userID: userID } })
+            if (!captcha) {
+                botService.bot.kickChatMember(chatID, userID)
+                    .then(() => botService.sendMessage(chatID, `Kickato l'utente ${botService.mentionUser(name, userID)} per non aver risolto il captcha`))
+                    .catch((error) => {
+                        console.error(error)
+                        botService.sendMessage(chatID, `Impossibile kickare l'utente ${botService.mentionUser(name, userID)}`)
+                    })
+            } else {
+                captcha.destroy()
+            }
+        }, 30 * 1000)
     }
 }
 

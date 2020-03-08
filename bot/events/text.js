@@ -62,7 +62,8 @@ class TextEvent extends Event {
 
     async checkTime(chatID, messageID) {
         let now = new Date()
-        let options = await groupService.getGroupOptions(chatID)
+        let options = (await groupService.getGroupOptions(chatID)).dataValues
+        console.log(options)
         if (!options.nightEnabled)
             return
         let nightStart = new Date(now.getFullYear(), now.getMonth(), now.getDate(), options.nightStart.split(':')[0], options.nightStart.split(':')[1])

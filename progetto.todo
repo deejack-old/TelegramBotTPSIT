@@ -12,39 +12,47 @@ Interfaccia web per amministrare il gruppo:
     ☐ [s] Lista admin, possibilità di aggiungere o togliere
     ✔ Lista warn, ban, kick @done(20-03-05 22:33)
     ☐ Lista utenti
-    ☐ Possibilità di scrivere tramite il bot
+    ✔ Possibilità di scrivere tramite il bot @done(20-03-07 16:59)
     ✔ Ogni admin ha il suo account per accedere all'interfaccia web @done(20-03-05 22:33)
     ☐ https://core.telegram.org/bots/api#promotechatmember
-    ☐ Invece di far inserire l'id gruppo, fare loggare e in caso ne abbiano più di uno far scegliere? Però dovrei modificare un po' di cose per la password?  
+    ✘ Invece di far inserire l'id gruppo, fare loggare e in caso ne abbiano più di uno far scegliere? Però dovrei modificare un po' di cose per la password? @cancelled(20-03-06 18:40)
+    ☐ Controllare che la richiesta con il token sia del gruppo giusto! Se no uno può disabilitare un ban di un altro gruppo
+        ☐ Salvare nel cookie anche il groupID, quando fa la richiesta controllare se sono giusti!
+    ☐ Controllare se l'utente è ancora admin/mod
+    ☐ Lista utenti con ban/kick/mute
+    ☐ Lista admin, rimuovere se ruolo stesso o inferiore
 
 BOT:
     ✔ Possibilità di contattare gli amministratori con @admin -> staff @done(20-03-05 10:45)
     ✔ Mutare gli utenti @done(20-03-02 21:39)
-    ☐ Permesso negato per utenti con nomi con caratteri non consentiti o senza username
-    ☐ Captcha?
+    ☐ Permesso negato per utenti con nomi con caratteri non consentiti
+    ✔ Permesso negato per utenti senza username @done(20-03-08 12:01)
+    ✔ Captcha? @done(20-03-08 12:01)
     ✔ Ora dopo il quale non si può scrivere più @done(20-03-05 10:45)
     ✔ Prima di kickare controllare se l'utente ha i permessi giusti e se l'altro utente non ha permessi @done(20-03-02 21:39)
     ✔ Modalità democrazia: votazione per kickare persone @started(20-02-28 11:47) @done(20-02-28 11:48) @lasted(1m)
     ✘ controllare se è nella tabella dei bannati e se è ancora bananto prima di farlo entrare [è necessario?] @cancelled(20-03-05 10:45)
-    ☐ https://core.telegram.org/bots/api#promotechatmember
+    ✔ https://core.telegram.org/bots/api#promotechatmember @done(20-03-07 16:59)
     ☐ /changename per cambiare il nome del groupmbember del db
     ✘ Comando per impedire di scrivere nel gruppo https://core.telegram.org/bots/api#setchatpermissions @cancelled(20-03-05 11:43)
-    ☐ /requestlogin per far mandare al bot in privato una password temporanea per il login nell'interfaccia web, il bot controllerà nella tabella User se c'è l'utente, nel caso gli manderà la password prendendo il chatID, se no manda un messaggio di errore
-    ☐ unmute e unmuteall
+    ✔ /requestlogin per far mandare al bot in privato una password temporanea per il login nell'interfaccia web, il bot controllerà nella tabella User se c'è l'utente, nel caso gli manderà la password prendendo il chatID, se no manda un messaggio di errore @done(20-03-07 16:58)
+    ☐ unmute, unwarn, unban
+    ✔ /Promote e /demote @done(20-03-07 16:58)
+    ☐ Rimuovere dagli admin quando viene rimosso/lascia il gruppo
 
 Database:
     ✔ Lista parole bannate @started(20-02-28 11:47) @done(20-03-02 10:31) @lasted(2d22h44m16s)
     ✔ Warn agli utenti @started(20-02-28 11:47) @done(20-03-02 10:58) @lasted(2d23h11m31s)
     ✔ Mettere colonna per il ruolo degli utenti @started(20-02-28 11:47) @done(20-03-02 10:58) @lasted(2d23h11m41s)
     ✔ Con la api non si possono iterare i membri, posso o salvarli sul db quando scrivono, oppure bannare/kickare/mutare/warnare replicando a un messaggio @done(20-03-02 10:58)
-    ☐ Tabella con gli eventi, tipo chi ha bannato/kickato/warnato chi
-        ☐ Anzi no, semplicemente dal robo web prendo tutto e riordino in base alla data, non ha senso avere cose ripetute e intrecciate
+    ✔ Tabella con gli eventi, tipo chi ha bannato/kickato/warnato chi @done(20-03-07 16:59)
+        ✔ Anzi no, semplicemente dal robo web prendo tutto e riordino in base alla data, non ha senso avere cose ripetute e intrecciate @done(20-03-07 16:59)
     ✘ ChatID nella tabella groupmember, però a sto punto devo fare una nuova tabella contenente userid e chatid? che palle @cancelled(20-03-05 10:38)
         ✘ Anzi basta fare una nuova tabella per chi avvia il bot, controllare /start e prima vedere se è un gruppo o no @cancelled(20-03-05 10:38)
             No perché il chatID delle chat private è uguale all'user id
     ✔ Tabella per le opzioni, se è attivo il controllo per gli username, per l'orario, orario di inizio/fine della notte @done(20-03-05 10:45)
-    ☐ mettere un flag attivo per warn, ban, mute. In modo che rimanga salvato sul db ma non abbia più effetto
-    ☐ Aggiungere adminID e reason al warn
+    ✔ mettere un flag attivo per warn, ban, mute. In modo che rimanga salvato sul db ma non abbia più effetto @done(20-03-07 16:59)
+    ✔ Aggiungere adminID e reason al warn @done(20-03-08 12:02)
 
 -------------------------------------------------------------------------------------------------------------------------------------------------
 Problemi:
@@ -53,7 +61,7 @@ Problemi:
         ✔ Fare il controllo nel beforeEvent @done(20-03-04 13:06)
     ✔ Controllare se gli utenti vengono effettivamente bannati @done(20-03-05 10:45)
     ☐ Aggiunge se stesso al db quando scrive un messaggio
-    ☐ La api non è aggiornata, non c'è setChatPermission
+    ✘ La api non è aggiornata, non c'è setChatPermission @cancelled(20-03-08 12:02)
 
     SET @groupID = 1;
     DELETE FROM groupmembers WHERE groupmembers.groupID = @groupID;

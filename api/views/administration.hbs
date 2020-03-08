@@ -3,10 +3,17 @@
 </nav>
 
 <div>
+    <form id="sendMessage">
+        <div class="form-group">
+            <label for="text">Invia un messaggio con il bot:</label>
+            <input type="text" class="form-control" id="text">
+        </div>
+        <button type="submit" class="btn btn-primary">Invia</button>
+    </form>
     <h2>This page is only visible to logged in users, your username: {{username}}</h2>
 
     <div class="d-flex flex-row bd-highlight mb-2">
-        <div class="left mr-auto">
+        <div style="margin-right: 20px; width: 100%">
             <caption>Ban list</caption>
             <table class="table table-striped ">
                 <thead class="thead-dark">
@@ -23,7 +30,7 @@
                 </tbody>
             </table>
         </div>
-        <div class="right">
+        <div style="width: 100%">
             <caption>Kick list</caption>
             <table class="table table-striped">
                 <thead class="thead-dark">
@@ -39,8 +46,8 @@
             </table>
         </div>
     </div>
-    <div>
-        <div class="left">
+    <div class="d-flex flex-row bd-highlight mb-2">
+        <div style="margin-right: 20px; width: 100%">
             <caption>Mute list</caption>
             <table class="table table-striped">
                 <thead class="thead-dark">
@@ -57,7 +64,7 @@
                 </tbody>
             </table>
         </div>
-        <div class="right">
+        <div style="width: 100%">
             <caption>Warn list</caption>
             <table class="table table-striped">
                 <thead class="thead-dark">

@@ -42,9 +42,18 @@ const Mute = sequelize.define('Mute', {
     reason: {
         type: DataTypes.TEXT,
         allowNull: true
+    },
+    disabled: {
+        type: DataTypes.BOOLEAN,
+        allowNull: false,
+        defaultValue: false
     }
 }, {
 
 })
+
+Mute.belongsTo(GroupMember, { foreignKey: 'userID', targetKey: 'id', as: 'user' })
+Mute.belongsTo(GroupMember, { foreignKey: 'adminID', targetKey: 'id', as: 'admin' })
+
 
 module.exports = Mute

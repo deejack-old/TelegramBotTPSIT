@@ -31,8 +31,10 @@ class BanCommand extends Command {
             return
         }
         let password = await userService.createLogin(message.from.id, message.chat.id)
+        let user = await userService.getGroupMember(message.from.id, message.chat.id)
+        let group = await groupService.getGroup(message.chat.id)
         botService.bot.sendMessage(message.from.id,
-            `La tua password temporanea è: ${password}, <a href=\"t.me/c/${message.chat.id.toString().substr(message.chat.id.toString().length - 10, 10)}/${message.message_id}\">richiesta</a>`, {
+            `La tua password temporanea è: ${password}, il tuo username è ${user.name}, l'id del gruppo è ${group.id} <a href=\"t.me/c/${message.chat.id.toString().substr(message.chat.id.toString().length - 10, 10)}/${message.message_id}\">richiesta</a>`, {
                 parse_mode: 'HTML'
             })
     }
