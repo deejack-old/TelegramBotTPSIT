@@ -3,7 +3,7 @@ const token = '1032794534:AAGxPSe8_OnOoUMdk9uWcIEDpjCE5Q9HlzM'
 const bot = new TelegramBot(token)
 const fs = require('fs')
 const commands = []//new (require('../commands/ban/ban'))(), new (require('../commands/kick/kick'))(), new (require('../commands/wordban/wordban'))(), new (require('../commands/warn/warn'))()]
-const events = [new (require('./../events/text'))(), new (require('./../events/join'))(), new (require('./../events/callback'))()]
+const events = [new (require('./../events/text'))(), new (require('./../events/join'))(), new (require('./../events/callback'))(), new (require('./../events/leave'))()]
 
 function start() {
     bot.startPolling().then(() => {

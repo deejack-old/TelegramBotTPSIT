@@ -19,10 +19,16 @@ class CallbackEvent extends Event {
             this.solveCaptcha(callback)
             return
         }
-        let permissions = await userService.getUserPermissions(callback.message.from.id, callback.message.chat.id)
-        if (!permissions.includes('modifyOptions'))
+        let permissions = await userService.getUserPermissions(callback.from.id, callback.message.chat.id)
+        console.log({ permissions: permissions })
+        if (!permissions.includes('modifyOptions') && !permissions.includes('*')) {
+            botService.bot.answerCallbackQuery(callback.id, {
+                text: "Non hai i permessi",
+                show_alert: false
+            })
             return
-        
+        }
+
         let options = await groupService.getGroupOptions(callback.message.chat.id)
         switch (callback.data) {
             case 'night':

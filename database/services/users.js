@@ -1,5 +1,8 @@
 const Permission = require('../models/Permission')
 const GroupMember = require('../models/GroupMember')
+const Ban = require('../models/Ban')
+const Mute = require('../models/Mute')
+const Warn = require('../models/Warn')
 const Login = require('../models/Login')
 const groupService = require('./group')
 const generatePassword = require('password-generator')
@@ -70,6 +73,57 @@ async function getMemberFromName(groupID, username) {
     return members.length > 0 ? members[0].dataValues : null
 }
 
+async function isBanned(userID, chatID) {
+    let group = await groupService.getGroup(chatID)
+    let member = await getGroupMember(userID, chatID)
+    let bans = await Ban.findAll({ where: { userID: member.id, groupID: group.id, disabled: false } })
+    return bans.length > 0
+}
+
+async function unban(userID, chatID) {
+    let group = await groupService.getGroup(chatID)
+    let member = await getGroupMember(userID, chatID)
+    let bans = await Ban.findAll({ where: { userID: member.id, groupID: group.id, disabled: false } })
+    bans.forEach(ban => {
+        ban.setDataValue('disabled', true)
+        ban.save()
+    })
+}
+
+async function isMuted(userID, chatID) {
+    let group = await groupService.getGroup(chatID)
+    let member = await getGroupMember(userID, chatID)
+    let mutes = await Mute.findAll({ where: { userID: member.id, groupID: group.id, disabled: false } })
+    return mutes.length > 0
+}
+
+async function unmute(userID, chatID) {
+    let group = await groupService.getGroup(chatID)
+    let member = await getGroupMember(userID, chatID)
+    let mutes = await Mute.findAll({ where: { userID: member.id, groupID: group.id, disabled: false } })
+    mutes.forEach(mute => {
+        mute.setDataValue('disabled', true)
+        mute.save()
+    })
+}
+
+async function isWarned(userID, chatID) {
+    let group = await groupService.getGroup(chatID)
+    let member = await getGroupMember(userID, chatID)
+    let warns = await Warn.findAll({ where: { userID: member.id, groupID: group.id, disabled: false } })
+    return warns.length > 0
+}
+
+async function unwarn(userID, chatID) {
+    let group = await groupService.getGroup(chatID)
+    let member = await getGroupMember(userID, chatID)
+    let warn = await Warn.findOne({ where: { userID: member.id, groupID: group.id, disabled: false } })
+    if (warn) {
+        warn.setDataValue('disabled', true)
+        await warn.save()
+    }
+}
+
 exports.getGroupMember = getGroupMember
 exports.getGroupMemberByID = getGroupMemberByID
 exports.getUserPermissions = getUserPermissions
@@ -79,3 +133,9 @@ exports.hasLogin = hasLogin
 exports.checkLogin = checkLogin
 exports.getMemberFromName = getMemberFromName
 exports.updateRole = updateRole
+exports.isBanned = isBanned
+exports.unban = unban
+exports.isMuted = isMuted
+exports.unmute = unmute
+exports.isWarned = isWarned
+exports.unwarn = unwarn

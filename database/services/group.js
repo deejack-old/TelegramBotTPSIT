@@ -36,17 +36,17 @@ async function banWord(chatID, word) {
     wordRecord.save()
 }
 
-async function warnUser(chatID, userID, adminID) {
+async function warnUser(chatID, userID, adminID, reason) {
     let group = await getGroup(chatID)
     let user = await userService.getGroupMember(userID, chatID)
     let admin = await userService.getGroupMember(adminID, chatID)
-    const warn = await Warn.build({ groupID: group.id, userID: user.id, adminID: admin.id }).save()
+    const warn = await Warn.build({ groupID: group.id, userID: user.id, adminID: admin.id, reason: reason }).save()
 }
 
 async function getWarnCount(chatID, userID) {
     let group = await getGroup(chatID)
     let user = await userService.getGroupMember(userID, chatID)
-    let warns = await Warn.findAll({ where: { groupID: group.id, userID: user.id } })
+    let warns = await Warn.findAll({ where: { groupID: group.id, userID: user.id, disabled: false } })
     return warns.length
 }
 

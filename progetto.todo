@@ -9,18 +9,18 @@ Idea principale: bot per la gestione di un gruppo telegram
 Il bot deve salvare su un database le informazioni sui gruppi in cui viene aggiunto, i permessi degli amministratori ecc
 
 Interfaccia web per amministrare il gruppo:
-    ☐ [s] Lista admin, possibilità di aggiungere o togliere
+    ☐ [s] Lista admin, possibilità di aggiungere o togliere @started(20-03-08 21:26)
+        ☐ https://core.telegram.org/bots/api#promotechatmember @started(20-03-08 21:26)
+        ☐ Lista admin, rimuovere se ruolo stesso o inferiore @started(20-03-08 21:26)
     ✔ Lista warn, ban, kick @done(20-03-05 22:33)
-    ☐ Lista utenti
+    ☐ Lista utenti @started(20-03-08 21:26)
+        ☐ Lista utenti con ban/kick/mute @started(20-03-08 21:26)
     ✔ Possibilità di scrivere tramite il bot @done(20-03-07 16:59)
     ✔ Ogni admin ha il suo account per accedere all'interfaccia web @done(20-03-05 22:33)
-    ☐ https://core.telegram.org/bots/api#promotechatmember
     ✘ Invece di far inserire l'id gruppo, fare loggare e in caso ne abbiano più di uno far scegliere? Però dovrei modificare un po' di cose per la password? @cancelled(20-03-06 18:40)
     ☐ Controllare che la richiesta con il token sia del gruppo giusto! Se no uno può disabilitare un ban di un altro gruppo
         ☐ Salvare nel cookie anche il groupID, quando fa la richiesta controllare se sono giusti!
     ☐ Controllare se l'utente è ancora admin/mod
-    ☐ Lista utenti con ban/kick/mute
-    ☐ Lista admin, rimuovere se ruolo stesso o inferiore
 
 BOT:
     ✔ Possibilità di contattare gli amministratori con @admin -> staff @done(20-03-05 10:45)
@@ -37,6 +37,7 @@ BOT:
     ✘ Comando per impedire di scrivere nel gruppo https://core.telegram.org/bots/api#setchatpermissions @cancelled(20-03-05 11:43)
     ✔ /requestlogin per far mandare al bot in privato una password temporanea per il login nell'interfaccia web, il bot controllerà nella tabella User se c'è l'utente, nel caso gli manderà la password prendendo il chatID, se no manda un messaggio di errore @done(20-03-07 16:58)
     ☐ unmute, unwarn, unban
+        ☐ /warn contare solo quelli non disattivati, /unwarn mostrare il numero di warn
     ✔ /Promote e /demote @done(20-03-07 16:58)
     ☐ Rimuovere dagli admin quando viene rimosso/lascia il gruppo
 
@@ -62,6 +63,7 @@ Problemi:
     ✔ Controllare se gli utenti vengono effettivamente bannati @done(20-03-05 10:45)
     ☐ Aggiunge se stesso al db quando scrive un messaggio
     ✘ La api non è aggiornata, non c'è setChatPermission @cancelled(20-03-08 12:02)
+    ☐ Facendo /unban su un utente che è già nella chat, l'utente viene sbannato e poi kickato, non posso farci nulla
 
     SET @groupID = 1;
     DELETE FROM groupmembers WHERE groupmembers.groupID = @groupID;

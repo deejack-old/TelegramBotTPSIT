@@ -13,20 +13,23 @@ router.use((request, response, next) => {
 })
 
 router.use('/api/events', require('./api/events'))
+router.use('/api/info', require('./api/info'))
 
 router.post('/send', (request, response) => {
     let group = request.token.groupID
     console.log(request.body)
     let text = request.body.text
     if (!text) {
+        response.status(400)
         response.send('Insert the text!')
         return
     }
     groupService.sendMessage(group, text)
 })
 
-router.get('/', (request, response) => {
-    response.render('administration', { username: request.token.username })
+router.get('/', async (request, response) => {
+    let events = await groupService.getEvents(request.token.groupID)
+    response.render('administration', { username: request.token.username, bans: events.bans, kicks: events.kicks, mutes: events.mutes, warns: events.warns })
 })
 
 module.exports = router
