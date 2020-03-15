@@ -42,7 +42,7 @@
                             <td><i class="icon-ok"></i></td>
                             {{/if}}
                             {{#unless disabled}}
-                            <td><button class="btn btn-primary">Unban</button></td>
+                            <td><button onclick="unban({{id}}, this)" class="btn btn-primary">Unban</button></td>
                             {{/unless}}
                         </tr>
                     {{/each}}
@@ -84,10 +84,28 @@
                         <th scope="col">From</th>
                         <th scope="col">Until</th>
                         <th scope="col">Reason</th>
+                        <th scope="col">Enabled</th>
                         <th scope="col">Unmute</th>
                     </tr>
                 </thead>
                 <tbody id="mute">
+                    {{#each mutes}}
+                        <tr>
+                            <td>{{userName}} ({{userID}})</td>
+                            <td>{{adminName}} ({{adminID}})</td>
+                            <td>{{createdAt}}</td>
+                            <td>{{untilDate}}</td>
+                            <td>{{reason}}</td>
+                            {{#if disabled}}
+                            <td><i class="icon-remove"></i></td>
+                            {{else}}
+                            <td><i class="icon-ok"></i></td>
+                            {{/if}}
+                            {{#unless disabled}}
+                            <td><button onclick="unmute({{id}}, this)" class="btn btn-primary">Unmute</button></td>
+                            {{/unless}}
+                        </tr>
+                    {{/each}}
                 </tbody>
             </table>
         </div>
@@ -100,10 +118,27 @@
                         <th scope="col">Warned By</th>
                         <th scope="col">From</th>
                         <th scope="col">Reason</th>
+                        <th scope="col">Enabled</th>
                         <th scope="col">Remove</th>
                     </tr>
                 </thead>
                 <tbody id="warn">
+                    {{#each warns}}
+                        <tr>
+                            <td>{{userName}} ({{userID}})</td>
+                            <td>{{adminName}} ({{adminID}})</td>
+                            <td>{{createdAt}}</td>
+                            <td>{{reason}}</td>
+                            {{#if disabled}}
+                            <td><i class="icon-remove"></i></td>
+                            {{else}}
+                            <td><i class="icon-ok"></i></td>
+                            {{/if}}
+                            {{#unless disabled}}
+                            <td><button onclick="unwarn({{id}}, this)" class="btn btn-primary">Unwarn</button></td>
+                            {{/unless}}
+                        </tr>
+                    {{/each}}
                 </tbody>
             </table>
         </div>
@@ -124,6 +159,16 @@
                     </tr>
                 </thead>
                 <tbody id="users">
+                    {{#each users}}
+                        <tr>
+                            <td>{{name}} ({{id}})</td>
+                            <td>{{roleID}}</td>
+                            <td><button onclick="search({{id}}, this)" class="btn btn-primary">Search</button></td>
+                            <td><button onclick="ban({{id}}, {{userID}}, this)" class="btn btn-primary">Ban</button></td>
+                            <td><button onclick="kick({{id}}, {{userID}}, this)" class="btn btn-primary">Kick</button></td>
+                            <td><button onclick="promote({{id}}, this)" class="btn btn-primary">Promote</button></td>
+                        </tr>
+                    {{/each}}
                 </tbody>
             </table>
         </div>
@@ -140,6 +185,15 @@
                     </tr>
                 </thead>
                 <tbody id="admins">
+                    {{#each admins}}
+                        <tr>
+                            <td>{{name}} ({{id}})</td>
+                            <td>{{roleID}}</td>
+                            <td><button onclick="search({{id}}, this)" class="btn btn-primary">Search</button></td>
+                            <td><button onclick="promote({{id}}, this)" class="btn btn-primary">Promote</button></td>
+                            <td><button onclick="demote({{id}}, this)" class="btn btn-primary">Demote</button></td>
+                        </tr>
+                    {{/each}}
                 </tbody>
             </table>
         </div>

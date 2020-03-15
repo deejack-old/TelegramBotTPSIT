@@ -3,16 +3,16 @@ const userService = require('../../database/services/users')
 const groupService = require('../../database/services/group')
 const AuthToken = require('../../database/models/AuthToken')
 
-function generateToken(username, groupID) {
+function generateToken(userID, groupID) {
     let token = crypto.randomBytes(30).toString('hex')
-    AuthToken.build({ token: token, username: username, groupID: groupID }).save()
+    AuthToken.build({ token: token, userID: userID, groupID: groupID }).save()
     return token
 }
 
-async function checkLogin(groupID, username, password) {
-    let member = await userService.getMemberFromName(groupID, username)
+async function checkLogin(groupID, userID, password) {
+    let member = await userService.getGroupMemberByID(userID, groupID)
     let group = await groupService.getGroupFromID(groupID)
-    return member && group && userService.checkLogin(member.userID, group.chatID, password)
+    return member && group && userService.checkLogin(member.dataValues.userID, group.chatID, password)
 }
 
 async function getAuthToken(token) {

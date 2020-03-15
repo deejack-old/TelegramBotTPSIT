@@ -6,10 +6,11 @@ router.get('/', (request, response) => {
 })
 
 router.post('/', async (request, response) => {
-    const { username, group, password } = request.body
-    let successful = await loginService.checkLogin(group, username, password)
+    const { userID, group, password } = request.body
+    let successful = await loginService.checkLogin(group, userID, password)
+    console.log('Successful: ' + successful)
     if (successful) {
-        let authToken = loginService.generateToken(username, group)
+        let authToken = loginService.generateToken(userID, group)
         response.cookie('AuthToken', authToken)
         response.redirect('/administration')
     } else {

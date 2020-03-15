@@ -25,7 +25,7 @@ async function updateRole(userID, chatID, roleID) {
 
 async function getGroupMemberByID(userID, groupID) {
     let member = await GroupMember.findOne({ where: { groupID: groupID, id: userID } })
-    return member ? member.dataValues : null
+    return member
 }
 
 async function getUserPermissions(userID, chatID) {

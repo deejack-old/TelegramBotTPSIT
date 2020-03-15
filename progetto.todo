@@ -9,18 +9,24 @@ Idea principale: bot per la gestione di un gruppo telegram
 Il bot deve salvare su un database le informazioni sui gruppi in cui viene aggiunto, i permessi degli amministratori ecc
 
 Interfaccia web per amministrare il gruppo:
-    ☐ [s] Lista admin, possibilità di aggiungere o togliere @started(20-03-08 21:26)
-        ☐ https://core.telegram.org/bots/api#promotechatmember @started(20-03-08 21:26)
-        ☐ Lista admin, rimuovere se ruolo stesso o inferiore @started(20-03-08 21:26)
+    ✔ [s] Lista admin, @done(20-03-15 17:55)
+        ✔ possibilità di aggiungere o togliere @started(20-03-08 21:26) @done(20-03-15 17:55) @lasted(6d20h29m10s)
+            ✔ https://core.telegram.org/bots/api#promotechatmember @started(20-03-08 21:26) @done(20-03-15 17:55) @lasted(6d20h29m10s)
+        ✔ Rimuovere se ruolo stesso o inferiore @started(20-03-08 21:26) @done(20-03-15 17:55) @lasted(6d20h29m8s)
     ✔ Lista warn, ban, kick @done(20-03-05 22:33)
-    ☐ Lista utenti @started(20-03-08 21:26)
-        ☐ Lista utenti con ban/kick/mute @started(20-03-08 21:26)
+    ✔ Lista utenti @started(20-03-08 21:26) @done(20-03-09 20:27) @lasted(23h1m17s)
+        ✔ Lista utenti con ban/kick/mute @started(20-03-08 21:26) @done(20-03-15 17:55) @lasted(6d20h29m6s)
     ✔ Possibilità di scrivere tramite il bot @done(20-03-07 16:59)
     ✔ Ogni admin ha il suo account per accedere all'interfaccia web @done(20-03-05 22:33)
     ✘ Invece di far inserire l'id gruppo, fare loggare e in caso ne abbiano più di uno far scegliere? Però dovrei modificare un po' di cose per la password? @cancelled(20-03-06 18:40)
-    ☐ Controllare che la richiesta con il token sia del gruppo giusto! Se no uno può disabilitare un ban di un altro gruppo
-        ☐ Salvare nel cookie anche il groupID, quando fa la richiesta controllare se sono giusti!
-    ☐ Controllare se l'utente è ancora admin/mod
+    ✔ Controllare che la richiesta con il token sia del gruppo giusto! Se no uno può disabilitare un ban di un altro gruppo @done(20-03-14 14:43)
+        ✘ Salvare nel cookie anche il groupID, quando fa la richiesta controllare se sono giusti! @cancelled(20-03-14 14:43)
+            ☐ No piuttosto fare una data di scadenza per il cookie/token
+        ✘ Controllare prima di ogni richiesta se è ancora admin @cancelled(20-03-14 16:33)
+    ✔ Controllare se l'utente è ancora admin/mod @done(20-03-15 17:54)
+    ☐ Icon '+' o '-' di fianco alla caption della tabella per visualizzare o nascondere le tabelle per il ban, warn ecc. 
+    ✔ In AuthToken mettere l'id utente non l'username @done(20-03-15 17:55)
+    ☐ Gestione errori da telegram
 
 BOT:
     ✔ Possibilità di contattare gli amministratori con @admin -> staff @done(20-03-05 10:45)
@@ -34,10 +40,10 @@ BOT:
     ✘ controllare se è nella tabella dei bannati e se è ancora bananto prima di farlo entrare [è necessario?] @cancelled(20-03-05 10:45)
     ✔ https://core.telegram.org/bots/api#promotechatmember @done(20-03-07 16:59)
     ☐ /changename per cambiare il nome del groupmbember del db
-    ✘ Comando per impedire di scrivere nel gruppo https://core.telegram.org/bots/api#setchatpermissions @cancelled(20-03-05 11:43)
+    ✘ Comando per impedire di scrivere nel gruppo https://core.telegram.org/bots/api#setchatpermissions (API telegram troppo vecchia)  @cancelled(20-03-05 11:43) 
     ✔ /requestlogin per far mandare al bot in privato una password temporanea per il login nell'interfaccia web, il bot controllerà nella tabella User se c'è l'utente, nel caso gli manderà la password prendendo il chatID, se no manda un messaggio di errore @done(20-03-07 16:58)
-    ☐ unmute, unwarn, unban
-        ☐ /warn contare solo quelli non disattivati, /unwarn mostrare il numero di warn
+    ✔ unmute, unwarn, unban @done(20-03-14 12:06)
+        ✔ /warn contare solo quelli non disattivati, /unwarn mostrare il numero di warn @done(20-03-12 19:02)
     ✔ /Promote e /demote @done(20-03-07 16:58)
     ☐ Rimuovere dagli admin quando viene rimosso/lascia il gruppo
 

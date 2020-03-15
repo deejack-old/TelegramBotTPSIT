@@ -3,7 +3,9 @@ const app = express()
 const handlebars = require('express-handlebars');
 const cookieParser = require('cookie-parser');
 const bodyParser = require('body-parser');
+
 const loginService = require('./services/loginService')
+const userService = require('../database/services/users')
 
 app.use(cookieParser())
 app.use(bodyParser.urlencoded({ extended: true }))
@@ -19,7 +21,6 @@ app.set('views', __dirname + '/views');
 
 app.use(async (request, response, next) => {
     let token = request.cookies['AuthToken']
-
     let authToken = await loginService.getAuthToken(token)
     request.token = authToken
     next()

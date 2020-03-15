@@ -23,16 +23,16 @@ class Event {
             return
         }
 
-        let groupMember = await userService.getGroupMember(event.from.id, chatID)// await GroupMemberModel.findOne({ where: { groupID: group.dataValues.id, userID: message.from.id } })
+        let groupMember = await userService.getGroupMember(event.from.id, chatID)
 
         let name = event.from.username || ((event.from.first_name || '') + ' ' + (event.from.last_name || ''))
-        if (!groupMember) { // Serve davvero avere una tabella degli utenti che hanno scritto?
+        if (!groupMember) {
             let result = await userService.createMember(event.from.id, name, chatID)
             botService.sendMessage(message.chat.id, 'Aggiunto ' + botService.mentionUser(message.from.username || message.from.first_name, event.from.id) + ' al db')
         }
-        if (event.reply_to_message) {
-            let replyFrom = await userService.getGroupMember(event.reply_to_message.from.id, chatID)// await GroupMemberModel.findOne({ where: { groupID: group.dataValues.id, userID: message.from.id } })
-            if (!replyFrom) { // Serve davvero avere una tabella degli utenti che hanno scritto?
+        if (event.reply_to_message && event.reply_to_message.from.id !== botService.botID) {
+            let replyFrom = await userService.getGroupMember(event.reply_to_message.from.id, chatID)
+            if (!replyFrom) {
                 let replyName = event.reply_to_message.from.username || ((event.reply_to_message.from.first_name || '') + ' ' + (event.reply_to_message.from.last_name || ''))
                 let result = await userService.createMember(event.reply_to_message.from.id, replyName, chatID)
                 botService.sendMessage(chatID, 'Aggiunto ' + botService.mentionUser(replyName, event.reply_to_message.from.id) + ' al db')

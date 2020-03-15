@@ -2,6 +2,7 @@ const { Sequelize, DataTypes, Model } = require('sequelize')
 /** @constant @type {Sequelize} */
 const sequelize = require('../database').connection
 const Group = require('./Group')
+const GroupMember = require('./GroupMember')
 
 const AuthToken = sequelize.define('AuthToken', {
     id: {
@@ -14,9 +15,13 @@ const AuthToken = sequelize.define('AuthToken', {
         type: DataTypes.STRING(30),
         allowNull: false
     },
-    username: {
-        type: DataTypes.STRING(100),
-        allowNull: false
+    userID: {
+        type: DataTypes.INTEGER,
+        allowNull: false,
+        references: {
+            model: GroupMember,
+            key: 'id'
+        }
     },
     groupID: {
         type: DataTypes.INTEGER,
