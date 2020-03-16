@@ -1,27 +1,28 @@
 # Details
 
-Date : 2020-03-09 16:56:11
+Date : 2020-03-16 08:46:34
 
 Directory d:\Cartelle\Desktop\TPSITBOT
 
-Total : 55 files,  3629 codes, 93 comments, 235 blanks, all 3957 lines
+Total : 56 files,  3827 codes, 88 comments, 243 blanks, all 4158 lines
 
 [summary](results.md)
 
 ## Files
 | filename | language | code | comment | blank | total |
 | :--- | :--- | ---: | ---: | ---: | ---: |
-| [api/app.js](/api/app.js) | JavaScript | 31 | 0 | 8 | 39 |
-| [api/routes/administration.js](/api/routes/administration.js) | JavaScript | 30 | 0 | 5 | 35 |
-| [api/routes/api/admins.js](/api/routes/api/admins.js) | JavaScript | 0 | 0 | 1 | 1 |
-| [api/routes/api/events.js](/api/routes/api/events.js) | JavaScript | 34 | 0 | 5 | 39 |
+| [api/app.js](/api/app.js) | JavaScript | 32 | 0 | 8 | 40 |
+| [api/routes/administration.js](/api/routes/administration.js) | JavaScript | 40 | 0 | 6 | 46 |
+| [api/routes/api/admins.js](/api/routes/api/admins.js) | JavaScript | 25 | 0 | 3 | 28 |
+| [api/routes/api/events.js](/api/routes/api/events.js) | JavaScript | 64 | 0 | 7 | 71 |
 | [api/routes/api/info.js](/api/routes/api/info.js) | JavaScript | 22 | 27 | 9 | 58 |
-| [api/routes/login.js](/api/routes/login.js) | JavaScript | 20 | 0 | 3 | 23 |
-| [api/services/groupService.js](/api/services/groupService.js) | JavaScript | 104 | 0 | 12 | 116 |
+| [api/routes/login.js](/api/routes/login.js) | JavaScript | 21 | 0 | 3 | 24 |
+| [api/services/groupService.js](/api/services/groupService.js) | JavaScript | 170 | 0 | 16 | 186 |
 | [api/services/loginService.js](/api/services/loginService.js) | JavaScript | 21 | 0 | 4 | 25 |
-| [api/static/scripts/administration.js](/api/static/scripts/administration.js) | JavaScript | 88 | 5 | 10 | 103 |
+| [api/static/scripts/administration.js](/api/static/scripts/administration.js) | JavaScript | 85 | 0 | 9 | 94 |
 | [api/static/styles/style.css](/api/static/styles/style.css) | CSS | 8 | 0 | 1 | 9 |
-| [api/views/administration.hbs](/api/views/administration.hbs) | Handlebars | 145 | 0 | 4 | 149 |
+| [api/views/administration.hbs](/api/views/administration.hbs) | Handlebars | 199 | 0 | 4 | 203 |
+| [api/views/error.hbs](/api/views/error.hbs) | Handlebars | 3 | 0 | 0 | 3 |
 | [api/views/layouts/main.hbs](/api/views/layouts/main.hbs) | Handlebars | 23 | 0 | 5 | 28 |
 | [api/views/login.hbs](/api/views/login.hbs) | Handlebars | 24 | 0 | 2 | 26 |
 | [bot/commands/ban/ban.js](/bot/commands/ban/ban.js) | JavaScript | 30 | 1 | 4 | 35 |
@@ -47,7 +48,7 @@ Total : 55 files,  3629 codes, 93 comments, 235 blanks, all 3957 lines
 | [bot/events/text.js](/bot/events/text.js) | JavaScript | 63 | 9 | 6 | 78 |
 | [bot/services/bot.js](/bot/services/bot.js) | JavaScript | 33 | 1 | 4 | 38 |
 | [database/database.js](/database/database.js) | JavaScript | 50 | 11 | 5 | 66 |
-| [database/models/AuthToken.js](/database/models/AuthToken.js) | JavaScript | 29 | 1 | 2 | 32 |
+| [database/models/AuthToken.js](/database/models/AuthToken.js) | JavaScript | 34 | 1 | 2 | 37 |
 | [database/models/Ban.js](/database/models/Ban.js) | JavaScript | 53 | 1 | 4 | 58 |
 | [database/models/BannedWords.js](/database/models/BannedWords.js) | JavaScript | 25 | 1 | 3 | 29 |
 | [database/models/Captcha.js](/database/models/Captcha.js) | JavaScript | 16 | 1 | 2 | 19 |
@@ -65,6 +66,6 @@ Total : 55 files,  3629 codes, 93 comments, 235 blanks, all 3957 lines
 | [index.js](/index.js) | JavaScript | 10 | 0 | 2 | 12 |
 | [package-lock.json](/package-lock.json) | JSON | 1,461 | 0 | 1 | 1,462 |
 | [package.json](/package.json) | JSON | 22 | 0 | 1 | 23 |
-| [progetto.todo](/progetto.todo) | Todo | 65 | 0 | 6 | 71 |
+| [progetto.todo](/progetto.todo) | Todo | 71 | 0 | 6 | 77 |
 
 [summary](results.md)

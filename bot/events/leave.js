@@ -6,6 +6,7 @@ const GroupOptions = require('../../database/models/GroupOptions')
 const GroupMemberModel = require('../../database/models/GroupMember')
 const Captcha = require('../../database/models/Captcha')
 const groupService = require('../../database/services/group')
+const userService = require('../../database/services/users')
 
 class TextEvent extends Event {
     constructor() {
@@ -15,6 +16,11 @@ class TextEvent extends Event {
     /** @param {TelegramBot.Message} message */
     async onEvent(event) {
         console.log({ leave: event })
+        let user = event.left_chat_member
+        let member = await userService.getGroupMember(user.id, event.chat.id)
+        if (member.roleID < 3) {
+            userService.updateRole(user.id, event.chat.id, 3)
+        }
     }
 }
 

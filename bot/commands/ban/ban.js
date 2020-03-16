@@ -5,7 +5,7 @@ const groupService = require('../../../database/services/group')
 
 class BanCommand extends Command {
     constructor() {
-        super('ban', 'Ban a user', 0, '/ban {username} [duration:min] [reason]', true, ['ban'], ['ignoreBans'])
+        super('ban', 'Ban a user', 0, '/ban \\{username\\} [duration:min] [reason]', true, ['ban'], ['ignoreBans'])
     }
 
     /** @param {TelegramBot.Message} message */

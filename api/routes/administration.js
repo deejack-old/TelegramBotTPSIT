@@ -36,11 +36,7 @@ router.post('/send', (request, response) => {
 })
 
 router.get('/', async (request, response) => {
-    let events = await groupService.getEvents(request.token.groupID)
-    let users = await groupService.getUsers(request.token.groupID)
-    let admins = await groupService.getAdmins(request.token.groupID)
-
-    response.render('administration', { username: request.user.name, bans: events.bans, kicks: events.kicks, mutes: events.mutes, warns: events.warns, admins: admins, users: users })
+    response.render('administration', { username: request.user.name })
 })
 
 module.exports = router

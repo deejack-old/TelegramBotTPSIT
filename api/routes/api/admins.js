@@ -25,4 +25,11 @@ router.post('/demote', async (request, response) => {
     response.end()
 })
 
+router.get('/', async (request, response) => {
+    let users = await groupService.getUsers(request.token.groupID)
+    let admins = await groupService.getAdmins(request.token.groupID)
+
+    response.render('administration/users', { users: users, admins: admins })
+})
+
 module.exports = router

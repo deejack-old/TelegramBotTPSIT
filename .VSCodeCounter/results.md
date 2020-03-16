@@ -1,34 +1,34 @@
 # Summary
 
-Date : 2020-03-09 16:56:11
+Date : 2020-03-16 08:46:34
 
 Directory d:\Cartelle\Desktop\TPSITBOT
 
-Total : 55 files,  3629 codes, 93 comments, 235 blanks, all 3957 lines
+Total : 56 files,  3827 codes, 88 comments, 243 blanks, all 4158 lines
 
 [details](details.md)
 
 ## Languages
 | language | files | code | comment | blank | total |
 | :--- | ---: | ---: | ---: | ---: | ---: |
-| JavaScript | 48 | 1,881 | 93 | 215 | 2,189 |
+| JavaScript | 48 | 2,016 | 88 | 223 | 2,327 |
 | JSON | 2 | 1,483 | 0 | 2 | 1,485 |
-| Handlebars | 3 | 192 | 0 | 11 | 203 |
-| Todo | 1 | 65 | 0 | 6 | 71 |
+| Handlebars | 4 | 249 | 0 | 11 | 260 |
+| Todo | 1 | 71 | 0 | 6 | 77 |
 | CSS | 1 | 8 | 0 | 1 | 9 |
 
 ## Directories
 | path | files | code | comment | blank | total |
 | :--- | ---: | ---: | ---: | ---: | ---: |
-| . | 55 | 3,629 | 93 | 235 | 3,957 |
-| api | 13 | 550 | 32 | 69 | 651 |
-| api\routes | 5 | 106 | 27 | 23 | 156 |
-| api\routes\api | 3 | 56 | 27 | 15 | 98 |
-| api\services | 2 | 125 | 0 | 16 | 141 |
-| api\static | 2 | 96 | 5 | 11 | 112 |
-| api\static\scripts | 1 | 88 | 5 | 10 | 103 |
+| . | 56 | 3,827 | 88 | 243 | 4,158 |
+| api | 14 | 737 | 27 | 77 | 841 |
+| api\routes | 5 | 172 | 27 | 28 | 227 |
+| api\routes\api | 3 | 111 | 27 | 19 | 157 |
+| api\services | 2 | 191 | 0 | 20 | 211 |
+| api\static | 2 | 93 | 0 | 10 | 103 |
+| api\static\scripts | 1 | 85 | 0 | 9 | 94 |
 | api\static\styles | 1 | 8 | 0 | 1 | 9 |
-| api\views | 3 | 192 | 0 | 11 | 203 |
+| api\views | 4 | 249 | 0 | 11 | 260 |
 | api\views\layouts | 1 | 23 | 0 | 5 | 28 |
 | bot | 22 | 832 | 37 | 86 | 955 |
 | bot\commands | 15 | 525 | 22 | 57 | 604 |
@@ -48,8 +48,8 @@ Total : 55 files,  3629 codes, 93 comments, 235 blanks, all 3957 lines
 | bot\commands\wordban | 1 | 18 | 1 | 3 | 22 |
 | bot\events | 6 | 274 | 14 | 25 | 313 |
 | bot\services | 1 | 33 | 1 | 4 | 38 |
-| database | 16 | 689 | 24 | 70 | 783 |
-| database\models | 13 | 430 | 13 | 36 | 479 |
+| database | 16 | 694 | 24 | 70 | 788 |
+| database\models | 13 | 435 | 13 | 36 | 484 |
 | database\services | 2 | 209 | 0 | 29 | 238 |
 
 [details](details.md)

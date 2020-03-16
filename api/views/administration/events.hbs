@@ -1,0 +1,134 @@
+<div class="d-flex flex-row bd-highlight mb-2">
+    <div style="margin-right: 20px; width: 100%">
+        <caption>Ban list</caption>
+        <i class="icon-minus" style="cursor:pointer" onclick="toggle(this)"></i>
+        <table class="table table-striped ">
+            <thead class="thead-dark">
+                <tr>
+                    <th scope="col">Username</th>
+                    <th scope="col">Banned By</th>
+                    <th scope="col">From</th>
+                    <th scope="col">Until</th>
+                    <th scope="col">Reason</th>
+                    <th scope="col">Enabled</th>
+                    <th scope="col">Unban</th>
+                </tr>
+            </thead>
+            <tbody id="ban">
+                {{#each bans}}
+                    <tr>
+                        <td>{{userName}} ({{userID}})</td>
+                        <td>{{adminName}} ({{adminID}})</td>
+                        <td>{{createdAt}}</td>
+                        <td>{{untilDate}}</td>
+                        <td>{{reason}}</td>
+                        {{#if disabled}}
+                        <td><i class="icon-remove"></i></td>
+                        {{else}}
+                        <td><i class="icon-ok"></i></td>
+                        {{/if}}
+                        {{#unless disabled}}
+                        <td><button onclick="unban({{id}}, this)" class="btn btn-primary">Unban</button></td>
+                        {{/unless}}
+                    </tr>
+                {{/each}}
+            </tbody>
+        </table>
+    </div>
+    <div style="width: 100%">
+        <caption>Kick list</caption>
+        <i class="icon-minus" style="cursor:pointer" onclick="toggle(this)"></i>
+        <table class="table table-striped">
+            <thead class="thead-dark">
+                <tr>
+                    <th scope="col">Username</th>
+                    <th scope="col">By</th>
+                    <th scope="col">Date</th>
+                    <th scope="col">Reason</th>
+                </tr>
+            </thead>
+            <tbody id="kick">
+                {{#each kicks}}
+                    <tr>
+                        <td>{{userName}} ({{userID}})</td>
+                        <td>{{adminName}} ({{adminID}})</td>
+                        <td>{{createdAt}}</td>
+                        <td>{{reason}}</td>
+                    </tr>
+                {{/each}}
+            </tbody>
+        </table>
+    </div>
+</div>
+<div class="d-flex flex-row bd-highlight mb-2">
+    <div style="margin-right: 20px; width: 100%">
+        <caption>Mute list</caption>
+        <i class="icon-minus" style="cursor:pointer" onclick="toggle(this)"></i>
+        <table class="table table-striped">
+            <thead class="thead-dark">
+                <tr>
+                    <th scope="col">Username</th>
+                    <th scope="col">Muted By</th>
+                    <th scope="col">From</th>
+                    <th scope="col">Until</th>
+                    <th scope="col">Reason</th>
+                    <th scope="col">Enabled</th>
+                    <th scope="col">Unmute</th>
+                </tr>
+            </thead>
+            <tbody id="mute">
+                {{#each mutes}}
+                    <tr>
+                        <td>{{userName}} ({{userID}})</td>
+                        <td>{{adminName}} ({{adminID}})</td>
+                        <td>{{createdAt}}</td>
+                        <td>{{untilDate}}</td>
+                        <td>{{reason}}</td>
+                        {{#if disabled}}
+                        <td><i class="icon-remove"></i></td>
+                        {{else}}
+                        <td><i class="icon-ok"></i></td>
+                        {{/if}}
+                        {{#unless disabled}}
+                        <td><button onclick="unmute({{id}}, this)" class="btn btn-primary">Unmute</button></td>
+                        {{/unless}}
+                    </tr>
+                {{/each}}
+            </tbody>
+        </table>
+    </div>
+    <div style="width: 100%">
+        <caption>Warn list</caption>
+        <i class="icon-minus" style="cursor:pointer" onclick="toggle(this)"></i>
+        <table class="table table-striped">
+            <thead class="thead-dark">
+                <tr>
+                    <th scope="col">Username</th>
+                    <th scope="col">Warned By</th>
+                    <th scope="col">From</th>
+                    <th scope="col">Reason</th>
+                    <th scope="col">Enabled</th>
+                    <th scope="col">Remove</th>
+                </tr>
+            </thead>
+            <tbody id="warn">
+                {{#each warns}}
+                    <tr>
+                        <td>{{userName}} ({{userID}})</td>
+                        <td>{{adminName}} ({{adminID}})</td>
+                        <td>{{createdAt}}</td>
+                        <td>{{reason}}</td>
+                        {{#if disabled}}
+                        <td><i class="icon-remove"></i></td>
+                        {{else}}
+                        <td><i class="icon-ok"></i></td>
+                        {{/if}}
+                        {{#unless disabled}}
+                        <td><button onclick="unwarn({{id}}, this)" class="btn btn-primary">Unwarn</button></td>
+                        {{/unless}}
+                    </tr>
+                {{/each}}
+            </tbody>
+        </table>
+    </div>
+</div>

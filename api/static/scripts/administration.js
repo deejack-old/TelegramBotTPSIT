@@ -1,6 +1,24 @@
 document.addEventListener('DOMContentLoaded', async () => {
     registerMessageForm()
+
+    loadEvents()
+
+    loadUsers()
 })
+
+async function loadEvents() {
+    let eventsDiv = document.querySelector('#events')
+    let response = await fetch('/administration/api/events')
+    let content = await response.text()
+    eventsDiv.innerHTML = content
+}
+
+async function loadUsers() {
+    let usersDiv = document.querySelector('#users')
+    let response = await fetch('/administration/api/admins')
+    let content = await response.text()
+    usersDiv.innerHTML = content
+}
 
 async function unban(banID, button) {
     let response = await executeRequest('/administration/api/events/ban', 'DELETE', { id: banID })
@@ -39,6 +57,7 @@ async function ban(id, userID, button) {
     let response = await executeRequest('/administration/api/events/ban', 'POST', { id: id, userID: userID })
     if (response.status === 200) {
         alert('Utente bannato per 1 giorno')
+        loadEvents()
     } else {
         alert('Errore')
     }
@@ -48,6 +67,7 @@ async function kick(id, userID, button) {
     let response = await executeRequest('/administration/api/events/kick', 'POST', { id: id, userID: userID })
     if (response.status === 200) {
         alert('Utente kickato')
+        loadEvents()
     } else {
         alert('Errore')
     }
@@ -57,6 +77,7 @@ async function promote(id, button) {
     let response = await executeRequest('/administration/api/admins/promote', 'POST', { id: id })
     if (response.status === 200) {
         alert('Utente promosso')
+        loadUsers()
     } else {
         alert('Errore')
     }
@@ -66,6 +87,7 @@ async function demote(id, button) {
     let response = await executeRequest('/administration/api/admins/demote', 'POST', { id: id })
     if (response.status === 200) {
         alert('Utente degradato')
+        loadUsers()
     } else {
         alert('Errore')
     }
@@ -91,4 +113,10 @@ function registerMessageForm() {
             alert('Messaggio inviato')
         } else alert('Errore')
     })
+}
+
+function toggle(button) {
+    let hide = button.className === 'icon-minus'
+    button.className = hide ? 'icon-plus' : 'icon-minus'
+    button.nextElementSibling.style.display = hide ? 'none' : 'block'
 }

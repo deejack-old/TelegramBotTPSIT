@@ -1,0 +1,56 @@
+<div class="d-flex flex-row bd-highlight mb-2">
+    <div style="margin-right: 20px; width: 100%">
+        <caption>Users list</caption>
+        <i class="icon-minus" style="cursor:pointer" onclick="toggle(this)"></i>
+        <table class="table table-striped">
+            <thead class="thead-dark">
+                <tr>
+                    <th scope="col">Username</th>
+                    <th scope="col">Role</th>
+                    <th scope="col">Search for events</th>
+                    <th scope="col">Ban</th>
+                    <th scope="col">Kick</th>
+                    <th scope="col">Promote</th>
+                </tr>
+            </thead>
+            <tbody id="users">
+                {{#each users}}
+                <tr>
+                    <td>{{name}} ({{id}})</td>
+                    <td>{{roleID}}</td>
+                    <td><button onclick="search({{id}}, this)" class="btn btn-primary">Search</button></td>
+                    <td><button onclick="ban({{id}}, {{userID}}, this)" class="btn btn-primary">Ban</button></td>
+                    <td><button onclick="kick({{id}}, {{userID}}, this)" class="btn btn-primary">Kick</button></td>
+                    <td><button onclick="promote({{id}}, this)" class="btn btn-primary">Promote</button></td>
+                </tr>
+                {{/each}}
+            </tbody>
+        </table>
+    </div>
+    <div style="width: 100%">
+        <caption>Admin list</caption>
+        <i class="icon-minus" style="cursor:pointer" onclick="toggle(this)"></i>
+        <table class="table table-striped">
+            <thead class="thead-dark">
+                <tr>
+                    <th scope="col">Username</th>
+                    <th scope="col">Role</th>
+                    <th scope="col">Search for events</th>
+                    <th scope="col">Promote</th>
+                    <th scope="col">Demote</th>
+                </tr>
+            </thead>
+            <tbody id="admins">
+                {{#each admins}}
+                <tr>
+                    <td>{{name}} ({{id}})</td>
+                    <td>{{roleID}}</td>
+                    <td><button onclick="search({{id}}, this)" class="btn btn-primary">Search</button></td>
+                    <td><button onclick="promote({{id}}, this)" class="btn btn-primary">Promote</button></td>
+                    <td><button onclick="demote({{id}}, this)" class="btn btn-primary">Demote</button></td>
+                </tr>
+                {{/each}}
+            </tbody>
+        </table>
+    </div>
+</div>

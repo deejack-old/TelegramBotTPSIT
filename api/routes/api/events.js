@@ -65,7 +65,7 @@ router.post('/kick', async (request, response) => {
 
 router.get('/', async (request, response) => {
     let events = await groupService.getEvents(request.token.groupID)
-    response.json(events)
+    response.render('administration/events', { bans: events.bans, kicks: events.kicks, mutes: events.mutes, warns: events.warns })
 })
 
 module.exports = router

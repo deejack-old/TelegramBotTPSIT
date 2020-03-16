@@ -5,7 +5,7 @@ const botService = require('../../services/bot')
 
 class WordBan extends Command {
     constructor() {
-        super('wordban', 'Ban a word', 1, '/wordban {word}', false, ['wordBan'])
+        super('wordban', 'Ban a word', 1, '/wordban \\{word\\}', false, ['wordBan'])
     }
 
     /** @param {TelegramBot.Message} message */
