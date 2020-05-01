@@ -6,7 +6,7 @@ const GroupMember = require('../../../database/models/GroupMember')
 
 class BanCommand extends Command {
     constructor() {
-        super('changename', 'Change the name in the DB', 1, '/changename \\{username\\}', false, ['changename'], [], false)
+        super('changename', 'Change the name in the DB', 1, '/changename \\{username\\}', false, ['changename'])
     }
 
     /** @param {TelegramBot.Message} message */

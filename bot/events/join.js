@@ -47,7 +47,7 @@ class TextEvent extends Event {
     sendCaptcha(chatID, name, userID) {
         botService.bot.sendMessage(chatID, `Benvenuto ${botService.mentionUser(name, userID)}, completa il captcha in 30 secondi o verrai kickato\\!`, {
             reply_markup: {
-                inline_keyboard: [[{ text: 'Captcha', callback_data: userID }]]
+                inline_keyboard: [[{ text: 'Captcha', callback_data: 'captcha:' + userID }]]
             },
             parse_mode: 'MarkdownV2'
         })

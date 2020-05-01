@@ -1,17 +1,6 @@
-// const mysql = require('mysql')
-// const connection = mysql.createConnection({
-//     host: 'localhost',
-//     user: 'bot',
-//     password: 'Rp8*nvSRpA17'
-// })
-
-// connection.connect((error) => {
-//     if (error) throw error
-//     console.log('MYSQL CONNESSO')
-// })
 const { Sequelize } = require('sequelize')
-const connection = new Sequelize('tpsit', 'bot', 'Rp8*nvSRpA17', { // TODO: aggiungere pool di connessioni
-    host: 'localhost',
+const connection = new Sequelize(process.env.DB_NAME, process.env.DB_USER, process.env.DB_PASS, { // TODO: aggiungere pool di connessioni
+    host: process.env.DB_HOST,
     dialect: 'mysql'
 })
 const models = [, ]
@@ -55,10 +44,9 @@ async function addDefaultRecords() {
     if (permCount === 0) {
         permission.build({ roleID: 1, name: '*' }).save()
         let userPerms = ['write', 'callAdmin', 'viewStaff', 'votekick']
-        let modPerms = [...userPerms, 'ignoreBans', 'ignoreWordBan', 'ban', 'mute', 'warn', 'info', 'modifyOptions']
+        let modPerms = [...userPerms, 'ignoreBans', 'ignoreWordBan', 'ban', 'mute', 'warn', 'info', 'modifyOptions', 'demote', 'kick', 'options', 'requestLogin', 'promote', 'unban', 'unmute', 'unwarn']
         modPerms.forEach(perm => permission.build({ roleID: 2, name: perm }).save())
         userPerms.forEach(perm => permission.build({ roleID: 3, name: perm }).save())
-        
     }
 }
 

@@ -30,6 +30,7 @@ class CallbackEvent extends Event {
         }
 
         let options = await groupService.getGroupOptions(callback.message.chat.id)
+        console.log(callback.data)
         switch (callback.data) {
             case 'night':
                 options.setDataValue('nightEnabled', !options.nightEnabled)
@@ -73,7 +74,8 @@ class CallbackEvent extends Event {
 
     async solveCaptcha(callback) {
         let id = callback.data.split(':')[1]
-        if (callback.from.id !== id) {
+        console.log(id + " " + callback.from.id)
+        if (callback.from.id != id) {
             botService.bot.answerCallbackQuery(callback.id, {
                 text: "Solo il nuovo utente può risolvere il captcha",
                 show_alert: true

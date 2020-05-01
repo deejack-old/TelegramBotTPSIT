@@ -1,5 +1,6 @@
 const TelegramBot = require('node-telegram-bot-api')
-const token = '1032794534:AAGxPSe8_OnOoUMdk9uWcIEDpjCE5Q9HlzM'
+const token = process.env.BOT_TOKEN
+const name = process.env.BOT_NAME
 const bot = new TelegramBot(token)
 const fs = require('fs')
 const commands = []//new (require('../commands/ban/ban'))(), new (require('../commands/kick/kick'))(), new (require('../commands/wordban/wordban'))(), new (require('../commands/warn/warn'))()]
@@ -28,7 +29,7 @@ function registerEvents() {
 function registerCommands() {
     console.log(commands)
     // Deve essere l'inizio della stringa, deve contenere il comando e poi deve esserci uno o più spazi oppure deve essere la fine del messaggio, se no prendendo /ban prende anche /banana
-    commands.forEach((command) => bot.onText(new RegExp("^/" + command.name + "( +|$)"), (message) => command.beforeCommand(message)))
+    commands.forEach((command) => bot.onText(new RegExp(`^/${command.name}(@${name})?( +|$)`), (message) => command.beforeCommand(message)))
 }
 
 exports.start = start

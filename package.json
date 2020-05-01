@@ -11,6 +11,7 @@
   "license": "ISC",
   "dependencies": {
     "cookie-parser": "^1.4.4",
+    "dotenv": "^8.2.0",
     "epxress": "0.0.1-security",
     "express": "^4.17.1",
     "express-handlebars": "^3.1.0",

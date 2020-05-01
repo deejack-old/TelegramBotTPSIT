@@ -22,7 +22,7 @@ class Command {
     /** @param {TelegramBot.Message} message */
     async beforeCommand(message) { //TODO: rifare sta merda
         if (this.groupRequired && message.chat.type === 'private') {
-            botService.sendMessage(message.chat.id, 'Non puoi usare il comando in chat privata!')
+            botService.sendMessage(message.chat.id, 'Non puoi usare il comando in chat privata\\!')
             return
         }
 

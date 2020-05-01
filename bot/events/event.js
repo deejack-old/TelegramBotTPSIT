@@ -15,6 +15,8 @@ class Event {
 
     /** @param {TelegramBot.Message} event */
     async beforeEvent(event) {
+        if (event.chat && event.chat.type === "private")
+            return;
         console.log({ beforeEvent: event })
         let chatID = event.chat ? event.chat.id : event.message.chat.id
         let group = await groupService.getGroup(chatID)
