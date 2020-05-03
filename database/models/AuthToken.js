@@ -12,7 +12,7 @@ const AuthToken = sequelize.define('AuthToken', {
         primaryKey: true
     },
     token: {
-        type: DataTypes.STRING(30),
+        type: DataTypes.STRING(60),
         allowNull: false
     },
     userID: {

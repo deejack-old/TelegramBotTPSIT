@@ -16,7 +16,7 @@ async function checkLogin(groupID, userID, password) {
 }
 
 async function getAuthToken(token) {
-    let authToken = await AuthToken.findOne({ token: token })
+    let authToken = await AuthToken.findOne({ where: { token: token } })
     return authToken ? authToken.dataValues : null
 }
 

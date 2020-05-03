@@ -70,11 +70,9 @@ class Command {
         let number = 0
         try {
             number = parseFloat(duration.substring(0, duration.length - 1))
-            console.log(number)
         } catch {
             return -1
         }
-        console.log(duration.substr(duration.length - 1, 1))
         switch (duration.substr(duration.length - 1, 1)) {
             case 's':
                 untilDate += (number * 1000)
@@ -91,7 +89,6 @@ class Command {
             default:
                 return -1
         }
-        console.log(untilDate / 1000)
         return untilDate / 1000
     }
 }

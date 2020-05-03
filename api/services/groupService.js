@@ -8,12 +8,13 @@ const userDBService = require('../../database/services/users')
 const botService = require('../../bot/services/bot')
 
 async function disableBan(id, groupID) {
+    console.log(id, groupID)
     let ban = await Ban.findOne({ where: { id: id, groupID: groupID } })
     if (ban) {
         ban.setDataValue('disabled', true)
         ban.save()
-        let member = await userDBService.getGroupMemberByID(ban.dataValues.userID)
-        let group = await groupDBService.getGroupFromID(ban.dataValues.groupID)
+        let member = await userDBService.getGroupMemberByID(ban.dataValues.userID, groupID)
+        let group = await groupDBService.getGroupFromID(groupID)
         botService.bot.unbanChatMember(group.chatID, member.dataValues.userID)
         return true
     }
@@ -35,7 +36,7 @@ async function disableMute(id, groupID, tgID) {
     if (mute) {
         mute.setDataValue('disabled', true)
         mute.save()
-        let member = await userDBService.getGroupMemberByID(mute.dataValues.userID)
+        let member = await userDBService.getGroupMemberByID(mute.dataValues.userID, groupID)
         let group = await groupDBService.getGroupFromID(mute.dataValues.groupID)
         botService.bot.restrictChatMember(group.chatID, member.dataValues.userID, { can_send_media_messages: true, can_send_messages: true, can_send_other_messages: true })
         return true
@@ -118,7 +119,6 @@ async function promote(userID, groupID, adminID) {
     let group = await groupDBService.getGroupFromID(groupID)
     let user = await userDBService.getGroupMemberByID(userID, groupID)
     let admin = await userDBService.getGroupMemberByID(adminID, groupID)
-    console.log({ group: group, user: user, admin: admin })
     if (!user || !admin || user.dataValues.roleID <= admin.roleID)
         return false
     let newRole = user.dataValues.roleID - 1

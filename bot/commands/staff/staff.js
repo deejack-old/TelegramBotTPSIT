@@ -10,7 +10,7 @@ class Staff extends Command {
     }
 
     /** @param {TelegramBot.Message} message */
-    async onCommand(message) {
+    async onCommand(message) {        
         let admins = await groupService.getAdmins(message.chat.id)
         let text = `Admin: \n\\- ${admins.filter(admin => admin.roleID === 1).map(admin => botService.mentionUser(admin.name, admin.userID)).join('\n\\- ')}\nMod:\n${admins.filter(admin => admin.roleID === 2).map(admin => botService.mentionUser(admin.name, admin.userID)).join('\n\\- ')}`
         botService.sendMessage(message.chat.id, text)

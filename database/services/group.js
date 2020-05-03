@@ -10,12 +10,12 @@ const GroupOptions = require('../models/GroupOptions')
 const userService = require('./users')
 
 async function getGroup(chatID) {
-    let group = await Group.findOne({ chatID: chatID })
+    let group = await Group.findOne({ where: { chatID: chatID } })
     return group ? group.dataValues : null
 }
 
 async function getGroupFromID(groupID) {
-    let group = await Group.findOne({ id: groupID })
+    let group = await Group.findOne({ where: { id: groupID } })
     return group ? group.dataValues : null
 }
 
@@ -52,22 +52,24 @@ async function getWarnCount(chatID, userID) {
 
 async function kickUser(chatID, userID, adminID, reason) {
     let group = await getGroup(chatID)
-    let bannedUser = await userService.getGroupMember(userID)
-    let admin = await userService.getGroupMember(adminID)
+    let bannedUser = await userService.getGroupMember(userID, chatID)
+    let admin = await userService.getGroupMember(adminID, chatID)
     Kick.build({ groupID: group.id, userID: bannedUser.id, adminID: admin.id, reason: reason }).save()
 }
 
 async function banUser(chatID, userID, adminID, duration, reason) {
+    console.error(chatID, userID, adminID)
     let group = await getGroup(chatID)
-    let bannedUser = await userService.getGroupMember(userID)
-    let admin = await userService.getGroupMember(adminID)
-    Ban.build({ groupID: group.id, userID: bannedUser.id, adminID: admin.id, untilDate: new Date(duration), reason: reason }).save()
+    let bannedUser = await userService.getGroupMember(userID, chatID)
+    let admin = await userService.getGroupMember(adminID, chatID)
+    console.log(group, bannedUser, admin)
+    const ban = await Ban.build({ groupID: group.id, userID: bannedUser.id, adminID: admin.id, untilDate: new Date(duration), reason: reason }).save()
 }
 
 async function muteUser(chatID, userID, adminID, duration, reason) {
     let group = await getGroup(chatID)
-    let bannedUser = await userService.getGroupMember(userID)
-    let admin = await userService.getGroupMember(adminID)
+    let bannedUser = await userService.getGroupMember(userID, chatID)
+    let admin = await userService.getGroupMember(adminID, chatID)
     Mute.build({ groupID: group.id, userID: bannedUser.id, adminID: admin.id, untilDate: new Date(duration), reason: reason }).save()
 }
 

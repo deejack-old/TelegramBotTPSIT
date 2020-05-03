@@ -2,16 +2,17 @@ const router = require('express').Router()
 const groupService = require('../services/groupService')
 const userService = require('../../database/services/users')
 
-router.use(async (request, response, next) => {
+router.use((request, response, next) => {
     if (request.token) {
-        let user = await userService.getGroupMemberByID(request.token.userID, request.token.groupID)
-        if (!user || user.dataValues.roleID > 2) {
-            response.status(401)
-            response.end()
-            return
-        }
-        request.user = user
-        next()
+        userService.getGroupMemberByID(request.token.userID, request.token.groupID).then((user) => {
+            if (!user || user.dataValues.roleID > 2) {
+                response.status(401)
+                response.end()
+                return
+            }
+            request.user = user.dataValues
+            next()
+        })
     } else {
         response.render('login', {
             message: 'Please login to continue',

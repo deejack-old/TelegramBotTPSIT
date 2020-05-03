@@ -14,8 +14,8 @@ class VoteKick extends Command {
         let replyFrom = message.reply_to_message.from
         let name = replyFrom.username || ((replyFrom.first_name || '') + ' ' + (replyFrom.last_name || ''))
         try {
-            let poll = await botService.bot.sendPoll(message.chat.id, 
-                `Vuoi kickare ${botService.mentionUser(name, message.from.id)}? \nIl poll dura 1 ora \nRichiesta la maggioranza di sì e il numero di sì deve essere maggiore del 60% del gruppo`, 
+            let poll = await botService.bot.sendPoll(message.chat.id,
+                `Vuoi kickare ${botService.mentionUser(name, message.from.id)}? \nIl poll dura 1 ora \nRichiesta la maggioranza di sì e il numero di sì deve essere maggiore del 60% del gruppo`,
                 ['Sì', 'No'],
                 {
                     parse_mode: 'MarkdownV2',
@@ -26,16 +26,25 @@ class VoteKick extends Command {
                 let yes = result.options[0].voter_count
                 let no = result.options[1].voter_count
                 let memberCount = await botService.bot.getChatMembersCount(message.chat.id)
-                if (yes > no && yes > (memberCount / 100 * 60)) { // i sì devono essere maggiori del 60%, da controlalre
-                    botService.bot.sendMessage(message.chat.id, "L'utente è stato kickato", {
-                        reply_to_message_id: message.message_id
-                    })
-                    groupService.kickUser(message.chat.id, message.reply_to_message.from.id, `Votekick, ${yes} sì e ${no} no`)
+                if (yes > no && yes > ((memberCount / 100 * 60) - 1)) { // i sì devono essere maggiori del 60% - il bot, da controlalre
+                    botService.bot.kickChatMember(message.chat.id, userID)
+                        .then(() => {
+                            groupService.kickUser(message.chat.id, message.reply_to_message.from.id, `Votekick, ${yes} sì e ${no} no`)
+                            botService.bot.sendMessage(message.chat.id, "L'utente è stato kickato", {
+                                reply_to_message_id: message.message_id
+                            })
+                        })
+                        .catch((error) => {
+                            console.error(error)
+                            botService.bot.sendMessage(message.chat.id, "Impossibile kickare l'utente, errore: " + error.response.body.description, {
+                                reply_to_message_id: message.message_id
+                            })
+                        })
                 }
                 else botService.bot.sendMessage(message.chat.id, "L'utente non verrà kickato", {
                     reply_to_message_id: message.message_id
                 })
-            }, 60 * 60 * 1000) // 1 h
+            }, 10 * 10 * 1000);//60 * 60 * 1000) // 1 h
         } catch (exception) {
             console.error(exception)
         }

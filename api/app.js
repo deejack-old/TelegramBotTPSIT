@@ -21,6 +21,10 @@ app.set('views', __dirname + '/views');
 
 app.use(async (request, response, next) => {
     let token = request.cookies['AuthToken']
+    if (!token) {
+        next()
+        return
+    }
     let authToken = await loginService.getAuthToken(token)
     request.token = authToken
     next()

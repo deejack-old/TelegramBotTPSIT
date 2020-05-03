@@ -39,7 +39,8 @@ class TextEvent extends Event {
                     console.error(error)
                     botService.sendMessage(message.chat.id, `Impossibile kickare l'utente ${botService.mentionUser(name, message.new_chat_member.id)}`)
                 })
-        } else if (groupOptions.captcha) {
+        } 
+        if (groupOptions.captcha) {
             this.sendCaptcha(message.chat.id, name, message.new_chat_member.id)
         }
     }
